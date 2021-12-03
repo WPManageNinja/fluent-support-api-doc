@@ -362,3 +362,174 @@ newCustomer[last_name] | text | no | Add your customer last name.
 newCustomer[email] | email | yes | Add your customer email.
 newCustomer[username] | text | yes | If you are going to create a new WP user also then this field is required.
 newCustomer[password] | password | yes | Create user password.
+
+
+## Create a new Ticket using customer endpoint
+
+```shell
+
+curl --location --request POST 'https://yourdomain.com/wp-json/fluent-support/v2/customer-portal/tickets?title=About Features&content=Does Fluent Support has custom fields' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+
+```
+> The above command creates a new contact in Fluent CRM and returns the data in JSON.
+
+```json
+    {
+    "message": "Ticket has been created successfully",
+    "ticket": {
+        "title": "About Features",
+        "content": "Does Fluent Support has custom fields?",
+        "customer_id": 27,
+        "product_source": "local",
+        "mailbox_id": 1,
+        "priority": "",
+        "client_priority": "",
+        "source": "web",
+        "slug": "about-features",
+        "hash": "c1e880131",
+        "last_customer_response": "2021-12-03 15:31:00",
+        "content_hash": "1e4ef873fb4010ca6d1e5da68b5a45a8",
+        "created_at": "2021-12-03 15:31:00",
+        "updated_at": "2021-12-03 15:31:00",
+        "waiting_since": "2021-12-03 15:31:00",
+        "id": 138,
+        "custom_fields": [],
+        "mailbox": {
+            "id": 1,
+            "name": "Fluent Support",
+            "slug": "fluent-support",
+            "box_type": "web",
+            "email": "rafilisan2@gmail.com",
+            "mapped_email": "",
+            "email_footer": "<p>Hi There,</p>\n<p>Here is your data.</p>\n<p>Customer First name: {{customer.first_name}}</p>\n<p>Customer Last name: {{customer.last_name}}</p>\n<p>Customer Email: {{customer.email}}</p>\n<p>Ticket ID: {{ticket.id}}</p>\n<p>Ticket Public URL: {{ticket.public_url}}</p>\n<p>Ticket Title: {{ticket.title}}</p>",
+            "settings": {
+                "admin_email_address": "rafilisan2@gmail.com"
+            },
+            "avatar": "",
+            "created_by": "1",
+            "is_default": "yes",
+            "created_at": "2021-11-18 15:08:42",
+            "updated_at": "2021-11-25 18:45:27"
+        },
+        "product": null,
+        "agent": null
+    }
+}
+```
+
+This endpoint creates a new ticket.
+
+### HTTP Request
+
+`POST https://yourdomain.com/wp-json/fluent-support/v2/customer-portal/tickets`
+
+### URL Parameters
+
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+title | text | yes | Specify the ticket title.
+content | text | yes | Specify the ticket content.
+client_priority | text | no | Specify the ticket priority.
+custom_data | array | no | Use custom field slug to send value to the field custom field.
+
+## Reply to a ticket as agent
+
+```shell
+
+curl --location --request POST 'https://yourdomain.com/wp-json/fluent-support/v2/tickets/<ticket_id>/responses?content=Yes, fluent support does have custom fields.&conversation_type=note' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+
+```
+> The above command creates a new contact in Fluent CRM and returns the data in JSON.
+
+```json
+    {
+    "message": "Response has been added",
+    "response": {
+        "person_id": 1,
+        "ticket_id": 138,
+        "conversation_type": "note",
+        "content": "<p>Yes, fluent support does have custom fields.</p>\n",
+        "source": "web",
+        "content_hash": "c7d7f144acde427c2ff8c7471cd3b715",
+        "updated_at": "2021-12-03 17:01:21",
+        "created_at": "2021-12-03 17:01:21",
+        "id": 114,
+        "person": {
+            "id": 1,
+            "first_name": "Rafi",
+            "last_name": "Ahmed",
+            "email": "rafi@authlab.io",
+            "title": "Developer",
+            "avatar": null,
+            "person_type": "agent",
+            "status": "active",
+            "ip_address": null,
+            "last_ip_address": null,
+            "address_line_1": null,
+            "address_line_2": null,
+            "city": null,
+            "zip": null,
+            "state": null,
+            "country": null,
+            "note": null,
+            "hash": "890d34ca8a81de55cef0c5b506887604",
+            "user_id": "1",
+            "description": null,
+            "remote_uid": null,
+            "last_response_at": null,
+            "created_at": "2021-11-18 15:07:45",
+            "updated_at": "2021-12-02 20:14:35",
+            "full_name": "Rafi Ahmed",
+            "photo": "https://www.gravatar.com/avatar/3f6e19a6d1fcf98c73e031882796091f?s=128"
+        }
+    },
+    "ticket": {
+        "id": 138,
+        "customer_id": "61",
+        "agent_id": "1",
+        "mailbox_id": "1",
+        "product_id": null,
+        "ticket_type_id": null,
+        "product_source": "local",
+        "privacy": "private",
+        "priority": "",
+        "client_priority": "",
+        "status": "active",
+        "title": "About Features",
+        "slug": "about-features",
+        "hash": "c1e880131",
+        "content_hash": "1e4ef873fb4010ca6d1e5da68b5a45a8",
+        "message_id": null,
+        "source": "web",
+        "content": "Does Fluent Support has custom fields?",
+        "secret_content": null,
+        "last_agent_response": "2021-12-03 16:57:21",
+        "last_customer_response": "2021-12-03 15:31:00",
+        "waiting_since": "2021-12-03 16:57:21",
+        "response_count": 2,
+        "first_response_time": "5181",
+        "total_close_time": null,
+        "resolved_at": null,
+        "closed_by": null,
+        "created_at": "2021-12-03 15:31:00",
+        "updated_at": "2021-12-03 17:01:21"
+    },
+    "update_data": []
+}
+```
+
+This endpoint add reply to a ticket.
+
+### HTTP Request
+
+`POST https://yourdomain.com/wp-json/fluent-support/v2/tickets/<ticket_id>/responses`
+
+### URL Parameters
+
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+content | text | yes | Specify the ticket content.
+conversation_type | text | yes | There are two type available response & note, use response to add reply to a ticket and for adding a internal note to this ticket then use note.
+close_ticket | text | no | Use custom field slug to send value to the field custom field.
