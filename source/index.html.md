@@ -278,7 +278,7 @@ curl --location -g --request POST 'https://yourdomain.com/wp-json/fluent-support
 --header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
 
 ```
-> The above command creates a new contact in Fluent CRM and returns the data in JSON.
+> The above command creates a new ticket in Fluent support and returns the data in JSON.
 
 ```json
 {
@@ -372,7 +372,7 @@ curl --location --request POST 'https://yourdomain.com/wp-json/fluent-support/v2
 --header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
 
 ```
-> The above command creates a new contact in Fluent CRM and returns the data in JSON.
+> The above command creates a new ticket in Fluent Support and returns the data in JSON.
 
 ```json
     {
@@ -441,7 +441,7 @@ curl --location --request POST 'https://yourdomain.com/wp-json/fluent-support/v2
 --header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
 
 ```
-> The above command creates a new contact in Fluent CRM and returns the data in JSON.
+> The above command add reply to a ticket and returns the data in JSON.
 
 ```json
     {
