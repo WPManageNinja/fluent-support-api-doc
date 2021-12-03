@@ -533,3 +533,33 @@ Parameter | Type | Required| Description
 content | text | yes | Specify the ticket content.
 conversation_type | text | yes | There are two type available response & note, use response to add reply to a ticket and for adding a internal note to this ticket then use note.
 close_ticket | text | no | Use custom field slug to send value to the field custom field.
+
+
+## Delete ticket(s)
+
+```shell
+
+curl --location --request POST 'https://yourdomain.com/wp-json/fluent-support/v2/tickets/bulk-actions?ticket_ids[]=<ticket_id(s)>&bulk_action=delete_tickets' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+
+```
+> The above command delete ticket(s) and returns the data in JSON.
+
+```json
+    {
+        "message": "1 tickets have been deleted"
+    }
+```
+
+This endpoint will delete ticket(s).
+
+### HTTP Request
+
+`POST https://yourdomain.com/wp-json/fluent-support/v2/tickets/bulk-actions`
+
+### URL Parameters
+
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+ticket_ids[] | array | yes | If you are going to delete multiple ticket then put the values as comma separated.
+bulk_action | text | yes | To delete ticket(s) use  ``delete_tickets`` as ``bulk_action``
