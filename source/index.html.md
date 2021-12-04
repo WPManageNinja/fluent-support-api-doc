@@ -534,6 +534,45 @@ content | text | yes | Specify the ticket content.
 conversation_type | text | yes | There are two type available response & note, use response to add reply to a ticket and for adding a internal note to this ticket then use note.
 close_ticket | text | no | To close the ticket use yes otherwise the value will be no.
 
+## Update any reply
+
+```shell
+curl --location --request PUT 'https://yourdomain.com/wp-json/fluent-support/v2/tickets/<ticket_id>/responses/<response_id>?content=Let me know the update.' \
+
+```
+
+> The above command will update a specific ticket.
+
+```json
+    {
+        "message": "Selected response has been updated",
+        "response": {
+            "id": 106,
+            "serial": "1",
+            "ticket_id": "106",
+            "person_id": "1",
+            "conversation_type": "response",
+            "content": "Let me know the update.",
+            "source": "web",
+            "content_hash": "f681747a752c36a8e64c755a635aa76f",
+            "message_id": null,
+            "is_important": "no",
+            "created_at": "2021-12-01 11:50:57",
+            "updated_at": "2021-12-04 15:07:39"
+        }
+    }
+```
+
+This endpoint will update a specific reply.
+
+### HTTP Request
+
+`PUT https://yourdomain.com/wp-json/fluent-support/v2/tickets/<ticket_id>/responses/<response_id>?content=Let me know the update.`
+
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+content | text | yes | Specify the ticket content.
+
 
 ## Delete ticket(s)
 
