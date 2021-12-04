@@ -146,7 +146,6 @@ Parameter | Type | Description | Default
 | search | string | Search by available methods | |
 | order_by | string | Ticket Sort By(use sorting key) | |
 | order_type | string | ASC/DESC | |
-| statuses | array | Status slugs to filter contacts | |
 | filters | array | Get some specific ticket by filtering the ticket | |
 
 ***Possible Filter Values:***
@@ -437,7 +436,7 @@ custom_data | array | no | Use custom field slug to send value to the field cust
 
 ```shell
 
-curl --location --request POST 'https://yourdomain.com/wp-json/fluent-support/v2/tickets/<ticket_id>/responses?content=Yes, fluent support does have custom fields.&conversation_type=note' \
+curl --location --request POST 'https://yourdomain.com/wp-json/fluent-support/v2/tickets/<ticket_id>/responses?content=Yes, fluent support does have custom fields.&conversation_type=response' \
 --header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
 
 ```
@@ -532,7 +531,7 @@ Parameter | Type | Required| Description
 --------- | ---- | ------- | -----------
 content | text | yes | Specify the ticket content.
 conversation_type | text | yes | There are two type available response & note, use response to add reply to a ticket and for adding a internal note to this ticket then use note.
-close_ticket | text | no | Use custom field slug to send value to the field custom field.
+close_ticket | text | no | To close the ticket use yes otherwise the value will be no.
 
 
 ## Delete ticket(s)
