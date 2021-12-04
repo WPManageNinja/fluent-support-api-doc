@@ -262,13 +262,14 @@ This endpoint retrieves a specific ticket.
 
 Parameter | Type | Description
 --------- | ----------- | -----
-with[] | array | Get Additional Ticket Meta Properties
+with[] | array | Get additional ticket meta properties
+with_data[] | array | Get additional ticket data
 
 ***Possible with parameters:***
 
 - other_tickets
 - extra_widgets
-
+- fluentcrm_profile (property of with_data)
 ## Create a new Ticket using agent endpoint
 
 ```shell
