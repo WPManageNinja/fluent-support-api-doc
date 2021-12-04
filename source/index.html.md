@@ -562,3 +562,105 @@ Parameter | Type | Required| Description
 --------- | ---- | ------- | -----------
 ticket_ids[] | array | yes | If you are going to delete multiple ticket then put the values as comma separated.
 bulk_action | text | yes | To delete ticket(s) use  ``delete_tickets`` as ``bulk_action``
+
+## Delete reply
+
+
+
+```shell
+
+curl --location --request DELETE 'https://yourdomain.com/wp-json/fluent-support/v2/tickets/<ticket_id>/responses/<response_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+
+```
+> The above command delete a specific reply of a ticket and returns the data in JSON.
+
+```json
+    {
+        "message": "Selected response has been deleted"
+    }
+```
+
+This endpoint will delete ticket reply.
+
+### HTTP Request
+
+`POST https://yourdomain.com/wp-json/fluent-support/v2/tickets/<ticket_id>/responses/<response_id>`
+
+## Add tag to ticket
+
+
+```shell
+
+curl --location --request POST 'https://yourdomain.com/wp-json/fluent-support/v2/tickets/<ticket_id>/tags?tag_id=<tag_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+
+```
+
+> The above command add tag to ticket and return the data in JSON.
+
+```json
+    {
+        "message": "Tag has been added to this ticket",
+        "tags": []
+    }
+```
+
+This endpoint will add tag to a ticket.
+
+### HTTP Request
+
+`POST https://yourdomain.com/wp-json/fluent-support/v2/tickets/<ticket_id>/tags?tag_id=<tag_id>`
+
+## Remove tag from a ticket
+
+```shell
+
+curl --location --request DELETE 'https://yourdomain.com/wp-json/fluent-support/v2/tickets/<ticket_id>/tags/<tag_id>' \
+
+```
+
+> The above command will remove tag from a ticket and return the data in JSON.
+
+```json
+    {
+        "message": "Tag has been removed from this ticket",
+        "tags": []
+    }
+```
+
+This endpoint will remove tag from a ticket.
+
+### HTTP Request
+
+`DELETE https://yourdomain.com/wp-json/fluent-support/v2/tickets/<ticket_id>/tags/<tag_id>`
+
+## Update ticket property
+***This endpoint update ticket properties like agent, product etc. It takes two parameters prop_name & prop_value, prop_name defines the property key and prop_value defines value***
+
+
+```shell
+
+    curl --location --request PUT 'https://yourdomain.com/wp-json/fluent-support/v2/tickets/<ticket_id>/property?prop_name=client_priority&prop_value=medium' \
+
+```
+
+> The above command update properties associate with the ticket.
+
+```json
+    {
+        "message": "Client priority has been updated",
+        "update_data": []
+    }
+```
+
+This endpoint will update properties associate with the ticket.
+
+### HTTP Request
+`PUT https://yourdomain.com/wp-json/fluent-support/v2/tickets/<ticket_id>/property?prop_name=client_priority&prop_value=medium`
+
+### URL Parameters
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+prop_name | text | yes | prop_value's are ```client_priority, priority, agent_id, product_id```
+prop_value | text/int | yes | This one will take value base on the prop_name if the prop_name takes id then you have to use a integer number otherwise you will use string.
