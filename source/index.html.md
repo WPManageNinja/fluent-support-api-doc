@@ -657,6 +657,7 @@ This endpoint will add tag to a ticket.
 ```shell
 
 curl --location --request DELETE 'https://yourdomain.com/wp-json/fluent-support/v2/tickets/<ticket_id>/tags/<tag_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
 
 ```
 
@@ -681,7 +682,8 @@ This endpoint will remove tag from a ticket.
 
 ```shell
 
-    curl --location --request PUT 'https://yourdomain.com/wp-json/fluent-support/v2/tickets/<ticket_id>/property?prop_name=client_priority&prop_value=medium' \
+curl --location --request PUT 'https://yourdomain.com/wp-json/fluent-support/v2/tickets/<ticket_id>/property?prop_name=client_priority&prop_value=medium' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
 
 ```
 
@@ -697,10 +699,113 @@ This endpoint will remove tag from a ticket.
 This endpoint will update properties associate with the ticket.
 
 ### HTTP Request
-`PUT https://yourdomain.com/wp-json/fluent-support/v2/tickets/<ticket_id>/property?prop_name=client_priority&prop_value=medium`
+`PUT https://yourdomain.com/wp-json/fluent-support/v2/tickets/<ticket_id>/property`
 
 ### URL Parameters
 Parameter | Type | Required| Description
 --------- | ---- | ------- | -----------
 prop_name | text | yes | prop_value's are ```client_priority, priority, agent_id, product_id```
 prop_value | text/int | yes | This one will take value base on the prop_name if the prop_name takes id then you have to use a integer number otherwise you will use string.
+
+# Customers
+
+## Get all customers
+
+```shell
+
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/customers?per_page=10&page=1&search=&status=all' \
+--header 'Authorization: Basic MTp4a0x3IDJUZEkgWmNidCAzNDVwIHpvS2ggWmk1ZQ==' \
+
+```
+
+> The above command get all customers.
+
+```json
+    {
+    "customers": {
+        "total": 41,
+        "per_page": 10,
+        "current_page": 1,
+        "last_page": 5,
+        "next_page_url": "/wp-json/fluent-support/v2/customers?page=2",
+        "prev_page_url": null,
+        "from": 1,
+        "to": 10,
+        "data": [
+            {
+                "id": 84,
+                "first_name": "Rafi",
+                "last_name": "Ahmed",
+                "email": "dev@akxpert.com",
+                "title": null,
+                "avatar": null,
+                "person_type": "customer",
+                "status": "active",
+                "ip_address": null,
+                "last_ip_address": null,
+                "address_line_1": null,
+                "address_line_2": null,
+                "city": null,
+                "zip": null,
+                "state": null,
+                "country": null,
+                "note": null,
+                "hash": "b8c610dc5994bd0125d65c5fb240c52b",
+                "user_id": null,
+                "description": null,
+                "remote_uid": null,
+                "last_response_at": "2021-12-04 16:10:54",
+                "created_at": "2021-12-04 16:10:54",
+                "updated_at": "2021-12-04 16:10:54",
+                "total_tickets": 1,
+                "total_responses": 0,
+                "full_name": "Rafi Ahmed",
+                "photo": "https://www.gravatar.com/avatar/8dceee8bf8e7e7bf01cb9843120e7c0b?s=128"
+            },
+            {
+                "id": 82,
+                "first_name": "Oscar",
+                "last_name": "Shepherd",
+                "email": "oscar@mailinator.com",
+                "title": null,
+                "avatar": null,
+                "person_type": "customer",
+                "status": "active",
+                "ip_address": null,
+                "last_ip_address": null,
+                "address_line_1": null,
+                "address_line_2": null,
+                "city": null,
+                "zip": null,
+                "state": null,
+                "country": null,
+                "note": null,
+                "hash": "6b2517d17d5c83ef2b33ec3406e3c620",
+                "user_id": null,
+                "description": null,
+                "remote_uid": null,
+                "last_response_at": "2021-12-04 16:03:45",
+                "created_at": "2021-12-04 16:03:45",
+                "updated_at": "2021-12-04 16:03:45",
+                "total_tickets": 1,
+                "total_responses": 0,
+                "full_name": "Oscar Shepherd",
+                "photo": "https://www.gravatar.com/avatar/724cf89e60f8774db08be6389ae030b5?s=128"
+            },
+        ]
+    }
+}
+```
+
+This endpoint will get all available customers.
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/customers`
+
+### URL Parameters
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+per_page | int | no | Define how many customer you want to collect in every page, default it's 10.
+page | int | no | Define the page number, default 1.
+search | text/int | no | Search customer by name, email or id.
+status | text | no | filter customer by status active, inactive or all, default all.
