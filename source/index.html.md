@@ -797,7 +797,7 @@ curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/
 }
 ```
 
-This endpoint will get all available customers.
+Endpoint to get the list of available customers
 
 ### HTTP Request
 `GET https://yourdomain.com/wp-json/fluent-support/v2/customers`
@@ -865,7 +865,7 @@ curl --location -g --request GET 'https://yourdomain.com/wp-json/fluent-support/
 }
 ```
 
-This endpoint will get a specific customer.
+Endpoint to get a specific customer by customer ID
 
 ### HTTP Request
 `GET https://yourdomain.com/wp-json/fluent-support/v2/customers/<customer_id>`
@@ -921,7 +921,7 @@ curl --location --request PUT 'https://yourdomain.com/wp-json/fluent-support/v2/
 }
 ```
 
-This endpoint will update a specific customer.
+This endpoint will update a specific customer by cutomer ID
 
 ### HTTP Request
 `PUT https://yourdomain.com/wp-json/fluent-support/v2/customers/<customer_id>`
