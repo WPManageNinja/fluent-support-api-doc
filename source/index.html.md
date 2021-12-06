@@ -1761,7 +1761,7 @@ curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/
 
 This endpoint returns activity settings.
 
-### HTTP Settings
+### HTTP Request
 
 `GET https://yourdomain.com/wp-json/fluent-support/v2/activity-logger/settings`
 
@@ -1782,13 +1782,339 @@ curl --location --request POST 'https://yourdomain.com/wp-json/fluent-support/v2
 
 This endpoint updates activity settings.
 
-### HTTP Settings
+### HTTP Request
 
 `POST https://yourdomain.com/wp-json/fluent-support/v2/activity-logger/settings`
 
-### HTTP Request
+### URL Parameters
 
 Parameter | Type | Required| Description
 --------- | ---- | ------- | -----------
 activity_settings[delete_days] | int | no | Delete activities automatically & you can define after how many days you want to delete this
 activity_settings[disable_logs] | text | no | This takes yes/no value, use yes to disable log
+
+# Mailbox
+
+## Get Mailboxes
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/mailboxes' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+> The above command returns all mailboxes
+
+```json
+[
+    {
+        "id": 1,
+        "name": "Fluent Support",
+        "slug": "fluent-support",
+        "box_type": "web",
+        "email": "fluentsupport@mail.com",
+        "mapped_email": "",
+        "email_footer": "<p>Hi There,</p>\n<p>Here is your data.</p>\n<p>Customer First name: {{customer.first_name}}</p>\n<p>Customer Last name: {{customer.last_name}}</p>\n<p>Customer Email: {{customer.email}}</p>\n<p>Ticket ID: {{ticket.id}}</p>\n<p>Ticket Public URL: {{ticket.public_url}}</p>\n<p>Ticket Title: {{ticket.title}}</p>",
+        "settings": {
+            "admin_email_address": "fluentsupport@mail.com"
+        },
+        "avatar": "",
+        "created_by": "1",
+        "is_default": "yes",
+        "created_at": "2021-11-18 15:08:42",
+        "updated_at": "2021-11-25 18:45:27",
+        "tickets_count": 113
+    },
+    {
+        "id": 3,
+        "name": "MailHog",
+        "slug": "mailhog",
+        "box_type": "web",
+        "email": "mailhog@mail.com",
+        "mapped_email": "",
+        "email_footer": null,
+        "settings": {
+            "admin_email_address": "admin_mailhog@mail.com"
+        },
+        "avatar": null,
+        "created_by": null,
+        "is_default": "no",
+        "created_at": "2021-11-20 18:49:54",
+        "updated_at": "2021-11-20 18:49:54",
+        "tickets_count": 137
+    },
+    {
+        "id": 4,
+        "name": "Fluent Support Help Desk",
+        "slug": "fluent-support-help_desk",
+        "box_type": "email",
+        "email": "help.fluentsupport@mail.com",
+        "mapped_email": "",
+        "email_footer": null,
+        "settings": {
+            "admin_email_address": "admin.fluentsupport@mail.com"
+        },
+        "avatar": null,
+        "created_by": null,
+        "is_default": "no",
+        "created_at": "2021-11-20 18:59:10",
+        "updated_at": "2021-11-20 18:59:10",
+        "tickets_count": 0
+    }
+]
+```
+
+This endpoint returns all mailboxes.
+
+### HTTP Request
+
+`GET https://yourdomain.com/wp-json/fluent-support/v2/mailboxes`
+
+## Get a Specific Mailbox
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/mailboxes/<mailbox_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+> The above command returns a specific mailbox
+
+```json
+{
+    "mailbox": {
+        "id": 1,
+        "name": "Fluent Support",
+        "slug": "fluent-support",
+        "box_type": "web",
+        "email": "fluentsupport@mail.com",
+        "mapped_email": "",
+        "email_footer": "<p>Hi There,</p>\n<p>Here is your data.</p>\n<p>Customer First name: {{customer.first_name}}</p>\n<p>Customer Last name: {{customer.last_name}}</p>\n<p>Customer Email: {{customer.email}}</p>\n<p>Ticket ID: {{ticket.id}}</p>\n<p>Ticket Public URL: {{ticket.public_url}}</p>\n<p>Ticket Title: {{ticket.title}}</p>",
+        "settings": {
+            "admin_email_address": "fluentsupport@mail.com"
+        },
+        "avatar": "",
+        "created_by": "1",
+        "is_default": "yes",
+        "created_at": "2021-11-18 15:08:42",
+        "updated_at": "2021-11-25 18:45:27",
+        "tickets_count": 113
+    },
+}
+```
+
+This endpoint returns a specific mailbox.
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/mailboxes/<mailbox_id>`
+
+## Update a Mailbox
+
+```shell
+curl --location --request PUT 'https://yourdomain.com/wp-json/fluent-support/v2/mailboxes/<mailbox_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+> The above command update a specific mailbox
+
+```json
+{
+    "message": "Mailbox has been saved",
+    "mailbox": {
+        "id": 1,
+        "name": "Fluent Support Email Box",
+        "slug": "fluent-email-box",
+        "box_type": "web",
+        "email": "support@fluentsupport.com",
+        "mapped_email": "",
+        "email_footer": "<p>There You From Footer {{customer.first_name}}</p>\n<p>Ticket ID: {{ticket.id}}<br />Ticket Public URL: {{ticket.public_url}}<br />Ticket Title: {{ticket.title}}</p>",
+        "settings": {
+            "admin_email_address": "support@fluentsupport.com"
+        },
+        "avatar": "",
+        "created_by": "1",
+        "is_default": "yes",
+        "created_at": "2021-11-10 10:43:36",
+        "updated_at": "2021-12-06 14:32:43"
+    }
+}
+```
+
+This endpoint will update a specific mailbox.
+
+### HTTP Request
+
+`PUT https://yourdomain.com/wp-json/fluent-support/v2/mailboxes/<mailbox_id>`
+
+### URL Parameters
+
+Parameter | Type | Description
+--------- | ---- | -----------
+business[name] | text | Updates mailbox name
+business[email] | email | Updates mailbox email
+business[mapped_email] | email | Updates mailbox mapped email
+business[settings][admin_email_address] | email | Updates mailbox admin email
+business[box_type] | text | Updates mailbox type (web/email)
+business[email_footer] | text | Updates mailbox email footer
+business[is_default] | text | Define if the mailbox is default or not (yes/no)
+
+## Get Mailbox Email Configs
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/mailboxes/<mailbox_id>/email_configs' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command returns mailbox email configs in JSON structure
+
+```json
+    {
+    "email_configs": [
+        {
+            "key": "ticket_created_email_to_customer",
+            "title": "Ticket Created (To Customer)",
+            "email_subject": "Re: {{ticket.title}} #{{ticket.id}}",
+            "email_body": "<p>Hi <strong><em>{{customer.full_name}}</em>,</strong></p><p>Your request (<a href=\"{{ticket.public_url}}\">#{{ticket.id}}</a>) has been received, and is being reviewed by our support staff.</p><p>To add additional comments, follow the link below:</p><h4><a href=\"{{ticket.public_url}}\">View Ticket</a></h4><p>&nbsp;</p><p>or follow this link: {{ticket.public_url}}</p><hr /><p>{{business.name}}</p>",
+            "status": "yes",
+            "can_edit_subject": "yes",
+            "description": "This email will be sent when a customer submit a support ticket"
+        },
+        {
+            "key": "ticket_replied_by_agent_email_to_customer",
+            "title": "Replied by Agent (To Customer)",
+            "email_subject": "Re: {{ticket.title}} #{{ticket.id}}",
+            "email_body": "<p>Hi <strong><em>{{customer.full_name}}</em>,</strong></p><p>An agent just replied to your ticket \"<strong>{{ticket.title}}</strong>\" (<a href=\"{{ticket.public_url}}\">#{{ticket.id}}</a>). To view his reply or add additional comments, click the button below:</p><h4><a href=\"{{ticket.public_url}}\">View Ticket</a></h4><p>or follow this link: {{ticket.public_url}}</p><hr /><p>Regards,<br />{{business.name}}</p>",
+            "status": "yes",
+            "can_edit_subject": "yes"
+        },
+        {
+            "key": "ticket_closed_by_agent_email_to_customer",
+            "title": "Ticket Closed by Agent (To Customer)",
+            "email_subject": "Re: {{ticket.title}} #{{ticket.id}}",
+            "email_body": "<p>Hi <strong><em>{{customer.full_name}},</strong></p><p>Your ticket - {{ticket.title}}</p><p>We hope that the ticket was resolved to your satisfaction. If you feel that the ticket should not be closed or if the ticket has not been resolved, please reopen the ticket (<a href=\"{{ticket.public_url}}\">#{{ticket.id}}</a>)</p><p>Regards,<br />{{business.name}}</p>",
+            "status": "yes",
+            "can_edit_subject": "yes",
+            "description": "This email will be sent when an agent close a ticket"
+        },
+        {
+            "key": "ticket_created_email_to_admin",
+            "title": "Ticket Created (To Admin)",
+            "email_subject": "New Ticket: {{ticket.title}} #{{ticket.id}}",
+            "email_body": "<p>A new ticket (<a href=\"{{ticket.admin_url}}\">{{ticket.title}}</a>) as been submitted by {{customer.full_name}}</p><h4>Ticket Body</h4><p>{{ticket.content}}</p><p><b><a href=\"{{ticket.admin_url}}\">View Ticket</a></b></p>",
+            "status": "yes",
+            "can_edit_subject": "yes"
+        },
+        {
+            "key": "ticket_replied_by_customer_email_to_admin",
+            "title": "Replied by Customer (To Agent/Admin)",
+            "email_subject": "New Response: {{ticket.title}} #{{ticket.id}}",
+            "email_body": "<p>A new response has been added to \"<a href=\"{{ticket.admin_url}}\">{{ticket.title}}</a>\"  by {{customer.full_name}}</p><h4>Response Body</h4><p>{{response.content}}</p><p><b><a href=\"{{ticket.admin_url}}\">View Ticket</a></b></p>",
+            "status": "yes",
+            "can_edit_subject": "yes"
+        }
+    ],
+    "email_keys": [
+        "ticket_created_email_to_customer",
+        "ticket_replied_by_agent_email_to_customer",
+        "ticket_closed_by_agent_email_to_customer",
+        "ticket_created_email_to_admin",
+        "ticket_replied_by_customer_email_to_admin"
+    ]
+}
+```
+
+This endpoint returns mailbox email configs
+
+### HTTP Request
+
+`GET https://yourdomain.com/wp-json/fluent-support/v2/mailboxes/<mailbox_id>/email_configs`
+
+## Get Mailbox Email Settings
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/mailboxes/<mailbox_id>/email_settings?email_type=<email_key>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command returns the settings of a mailbox email.
+
+```json
+{
+    "email_settings": {
+        "key": "ticket_created_email_to_customer",
+        "title": "Ticket Created (To Customer)",
+        "email_subject": "Re: {{ticket.title}} #{{ticket.id}}",
+        "email_body": "<p>Hi <strong><em>{{customer.full_name}}</em>,</strong></p><p>Your request (<a href=\"{{ticket.public_url}}\">#{{ticket.id}}</a>) has been received, and is being reviewed by our support staff.</p><p>To add additional comments, follow the link below:</p><h4><a href=\"{{ticket.public_url}}\">View Ticket</a></h4><p>&nbsp;</p><p>or follow this link: {{ticket.public_url}}</p><hr /><p>{{business.name}}</p>",
+        "status": "yes",
+        "can_edit_subject": "yes",
+        "description": "This email will be sent when a customer submit a support ticket"
+    }
+}
+```
+
+This endpoint returns mailbox email settings
+
+***All available email keys are:***
+
+- ticket_replied_by_agent_email_to_customer
+- ticket_created_email_to_customer
+- ticket_closed_by_agent_email_to_customer
+- ticket_created_email_to_admin
+- ticket_replied_by_customer_email_to_admin
+
+### HTTP Request
+
+`GET https://yourdomain.com/wp-json/fluent-support/v2/mailboxes/<mailbox_id>/email_settings?email_type=<email_key>`
+
+### Update Email Settings
+
+```shell
+curl --location --request PUT 'https://yourdomain.com/wp-json/fluent-support/v2/mailboxes/<mailbox_id>/email_settings' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command updates mailbox email setting.
+
+```json
+{
+    "message": "Settings has been updated"
+}
+```
+
+This endpoint update mailbox email settings
+
+### HTTP Request
+`PUT https://yourdomain.com/wp-json/fluent-support/v2/mailboxes/<mailbox_id>/email_settings`
+
+### URL Parameters
+Parameter | Type | Description
+--------- | ---- | -----------
+email_type - required | text | Define the email type
+email_settings[key] - required | text | Define email settings key
+email_settings[title] | text | Update email settings title
+email_settings[email_subject] | text | Update email subject
+email_settings[email_body] | text | Update email body
+email_settings[status] | text | Enable or disable the email `yes` to enable and use `no` to disable
+email_settings[can_edit_subject] | text | Enable or disable the subject editing `yes` to enable and use `no` to disable
+email_settings[description] | text | Email description
+
+## Delete Mailbox
+```shell
+curl --location --request DELETE 'https://yourdomain.com/wp-json/fluent-support/v2/mailboxes/<mailbox_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command will delete a mailbox
+
+```json
+{
+    "message": "Selected Business has been deleted"
+}
+```
+
+This endpoint will delete mailbox.
+
+
+### HTTP Request
+`DELETE https://yourdomain.com/wp-json/fluent-support/v2/mailboxes/<mailbox_id>`
+
+### URL Parameters
+
+Parameter | Type | Description
+--------- | ---- | -----------
+fallback_id - required | int | To delete a mailbox you must need to transfer all the tickets associated with this mailbox to another mailbox, so put the targeted mailbox id here
