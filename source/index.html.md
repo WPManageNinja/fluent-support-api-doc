@@ -1677,3 +1677,118 @@ This endpoint will delete a specific ticket.
 ### HTTP Request
 
 `DELETE https://yourdomain.com/wp-json/fluent-support/v2/saved-replies/<reply_id>`
+
+# Activities
+
+## Get Activities
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/activity-logger' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command returns activities
+
+```json
+{
+    "activities": {
+        "total": 189,
+        "per_page": 10,
+        "current_page": 1,
+        "last_page": 19,
+        "next_page_url": "/wp-json/fluent-support/v2/activity-logger?page=2",
+        "prev_page_url": null,
+        "from": 1,
+        "to": 10,
+        "data": [
+            {
+                "id": 507,
+                "person_id": "85",
+                "person_type": "customer",
+                "event_type": "fluent_support/ticket_created",
+                "object_id": "193",
+                "object_type": "ticket",
+                "description": "<a class=\"fs_link_trans fs_pr\" href=\"#view_customer\">Giulio Nieder</a> created a <a class=\"fs_link_trans fs_tk\" href=\"#view_ticket\">Ticket: Hello, I'm considering FluentSupport. I tried the free version, and t looks l... (#168)</a> via email",
+                "created_at": "2021-12-06 09:31:02",
+                "updated_at": "2021-12-06 09:31:02",
+                "person": {
+                    "first_name": "Giulio",
+                    "person_type": "customer",
+                    "last_name": "Nieder",
+                    "id": 85,
+                    "avatar": null,
+                    "full_name": "Giulio Nieder",
+                    "photo": "https://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?s=128"
+                }
+            }
+        ]
+    },
+    "settings": {
+        "delete_days": 14,
+        "disable_logs": "no"
+    }
+}
+```
+
+This endpoint returns all activities
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/activity-logger`
+
+### URL Parameters
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+per_page | int | no | Activities to show per page, default 10
+page | int | no | Activity page number, default 1
+
+## Get Activity Settings
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/activity-logger/settings' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command returns activity settings.
+
+```json
+{
+    "activity_settings": {
+        "delete_days": 1,
+        "disable_logs": "no"
+    }
+}
+```
+
+This endpoint returns activity settings.
+
+### HTTP Settings
+
+`GET https://yourdomain.com/wp-json/fluent-support/v2/activity-logger/settings`
+
+## Update Activity Settings
+
+```shell
+curl --location --request POST 'https://yourdomain.com/wp-json/fluent-support/v2/activity-logger/settings' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command updates activity settings.
+
+```json
+{
+    "message": "Activity settings has been updated"
+}
+```
+
+This endpoint updates activity settings.
+
+### HTTP Settings
+
+`POST https://yourdomain.com/wp-json/fluent-support/v2/activity-logger/settings`
+
+### HTTP Request
+
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+activity_settings[delete_days] | int | no | Delete activities automatically & you can define after how many days you want to delete this
+activity_settings[disable_logs] | text | no | This takes yes/no value, use yes to disable log
