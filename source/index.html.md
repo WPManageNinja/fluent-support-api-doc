@@ -966,3 +966,297 @@ This endpoint will delete a specific customer.
 
 ### HTTP Request
 `DELETE https://yourdomain.com/wp-json/fluent-support/v2/customers/<customer_id>`
+
+# Reports
+
+## Get overall reports
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/reports' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command returns overall reports.
+
+```json
+{
+    "overall_reports": {
+        "new_tickets": {
+            "title": "New Tickets",
+            "count": 109
+        },
+        "active_tickets": {
+            "title": "Active Tickets",
+            "count": 11
+        },
+        "closed_tickets": {
+            "title": "Closed Tickets",
+            "count": 11
+        },
+        "responses": {
+            "title": "Responses",
+            "count": 68
+        }
+    }
+}
+```
+
+This endpoint will return ticket overall report.
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/reports`
+
+## Get Ticket Stats
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/reports/tickets-growth' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command returns ticket growth.
+
+```json
+{
+    "stats": {
+        "2021-11-06": 34,
+        "2021-11-07": 38,
+        "2021-11-08": 26,
+        "2021-11-09": 37,
+        "2021-11-10": 28,
+        "2021-11-11": 21,
+        "2021-11-12": 20,
+        "2021-11-13": 22,
+        "2021-11-14": 32,
+        "2021-11-15": 36,
+        "2021-11-16": 27,
+        "2021-11-17": 18,
+        "2021-11-18": 31,
+        "2021-11-19": 42,
+        "2021-11-20": 33,
+        "2021-11-21": 17,
+        "2021-11-22": 29,
+        "2021-11-23": 30,
+        "2021-11-24": 19,
+        "2021-11-25": 40,
+        "2021-11-26": 41,
+        "2021-11-27": 30,
+        "2021-11-28": 50,
+        "2021-11-29": 52,
+        "2021-11-30": 43,
+        "2021-12-01": 51,
+        "2021-12-02": 20,
+        "2021-12-03": 29,
+        "2021-12-04": 42,
+        "2021-12-05": 30,
+        "2021-12-06": 25
+    }
+}
+```
+
+This endpoint will return ticket growth.
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/reports/tickets-growth`
+
+### URL Parameters
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+date_range[] | date (YYYY-MM-DD) | no | To filter reports by date range use this param like date_range[]=2021-12-01&date_range[]=2021-12-31
+
+## Get Ticket Resolve Stats
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/reports/tickets-resolve-growth' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command returns closed tickets.
+
+```json
+{
+    "stats": {
+        "2021-11-06": 34,
+        "2021-11-07": 38,
+        "2021-11-08": 26,
+        "2021-11-09": 37,
+        "2021-11-10": 28,
+        "2021-11-11": 21,
+        "2021-11-12": 20,
+        "2021-11-13": 22,
+        "2021-11-14": 32,
+        "2021-11-15": 36,
+        "2021-11-16": 27,
+        "2021-11-17": 18,
+        "2021-11-18": 31,
+        "2021-11-19": 42,
+        "2021-11-20": 33,
+        "2021-11-21": 17,
+        "2021-11-22": 29,
+        "2021-11-23": 30,
+        "2021-11-24": 19,
+        "2021-11-25": 40,
+        "2021-11-26": 41,
+        "2021-11-27": 30,
+        "2021-11-28": 50,
+        "2021-11-29": 52,
+        "2021-11-30": 43,
+        "2021-12-01": 51,
+        "2021-12-02": 20,
+        "2021-12-03": 29,
+        "2021-12-04": 42,
+        "2021-12-05": 30,
+        "2021-12-06": 25
+    }
+}
+```
+
+This endpoint will return closed tickets.
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/reports/tickets-resolve-growth`
+
+### URL Parameters
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+date_range[] | date (YYYY-MM-DD) | no | To filter reports by date range use this param like date_range[]=2021-12-01&date_range[]=2021-12-31
+
+## Get Ticket Response Growth
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/reports/response-growth' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command returns the stats of total replies by agents.
+
+```json
+{
+    "stats": {
+        "2021-11-06": 34,
+        "2021-11-07": 38,
+        "2021-11-08": 26,
+        "2021-11-09": 37,
+        "2021-11-10": 28,
+        "2021-11-11": 21,
+        "2021-11-12": 20,
+        "2021-11-13": 22,
+        "2021-11-14": 32,
+        "2021-11-15": 36,
+        "2021-11-16": 27,
+        "2021-11-17": 18,
+        "2021-11-18": 31,
+        "2021-11-19": 42,
+        "2021-11-20": 33,
+        "2021-11-21": 17,
+        "2021-11-22": 29,
+        "2021-11-23": 30,
+        "2021-11-24": 19,
+        "2021-11-25": 40,
+        "2021-11-26": 41,
+        "2021-11-27": 30,
+        "2021-11-28": 50,
+        "2021-11-29": 52,
+        "2021-11-30": 43,
+        "2021-12-01": 51,
+        "2021-12-02": 20,
+        "2021-12-03": 29,
+        "2021-12-04": 42,
+        "2021-12-05": 30,
+        "2021-12-06": 25
+    }
+}
+```
+
+This endpoint will return the stats of total replies by agents.
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/reports/response-growth`
+
+### URL Parameters
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+date_range[] | date (YYYY-MM-DD) | no | To filter reports by date range use this param like date_range[]=2021-12-01&date_range[]=2021-12-31
+
+## Get Agents Summary
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/reports/agents-summary' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command returns agents summary.
+
+```json
+{
+    "summary": [
+        {
+            "id": 13,
+            "first_name": "Nicholas",
+            "last_name": "Rose",
+            "stats": {
+                "interactions": 7,
+                "responses": 21,
+                "opens": "11",
+                "closed": 3,
+                "waiting_tickets": 2
+            },
+            "active_stat": {
+                "average_waiting": "1 days",
+                "max_waiting": "3 days",
+                "waiting_tickets": "2"
+            },
+            "full_name": "Nicholas Rose",
+            "photo": "https://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?s=128"
+        },
+        {
+            "id": 26,
+            "first_name": "Michael ",
+            "last_name": "Smith",
+            "stats": {
+                "interactions": 17,
+                "responses": 26,
+                "opens": "50",
+                "closed": 4,
+                "waiting_tickets": 5
+            },
+            "active_stat": {
+                "average_waiting": "4 days",
+                "max_waiting": "2 weeks",
+                "waiting_tickets": "5"
+            },
+            "full_name": "Michael  Smith",
+            "photo": "https://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?s=128"
+        },
+        {
+            "id": 37,
+            "first_name": "John",
+            "last_name": "Murphy",
+            "stats": {
+                "interactions": 20,
+                "responses": 17,
+                "opens": "1",
+                "closed": 8,
+                "waiting_tickets": 6
+            },
+            "active_stat": {
+                "average_waiting": "3 days",
+                "max_waiting": "3 days",
+                "waiting_tickets": "6"
+            },
+            "full_name": "John Murphy",
+            "photo": "https://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?s=128"
+        }
+    ]
+}
+```
+
+This endpoint will return the stats of total replies by agents.
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/reports/agents-summary`
+
+### URL Parameters
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+from | date (YYYY-MM-DD) | no | Filter agent summary by date
+to| date (YYYY-MM-DD) | no | Filter agent summary by date
