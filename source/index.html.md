@@ -714,7 +714,7 @@ prop_value | text/int | yes | This one will take value base on the prop_name if 
 ```shell
 
 curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/customers?per_page=10&page=1&search=&status=all' \
---header 'Authorization: Basic MTp4a0x3IDJUZEkgWmNidCAzNDVwIHpvS2ggWmk1ZQ==' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
 
 ```
 
@@ -809,3 +809,160 @@ per_page | int | no | Define how many customer you want to collect in every page
 page | int | no | Define the page number, default 1.
 search | text/int | no | Search customer by name, email or id.
 status | text | no | filter customer by status active, inactive or all, default all.
+
+## Get a specific customer
+
+```shell
+
+curl --location -g --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/customers/83?with[]=widgets&with[]=tickets&with[]=fluentcrm_profile' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+
+```
+
+> The above command get a specific customer.
+
+```json
+   {
+    "customer": {
+        "id": 83,
+        "first_name": "Rafi",
+        "last_name": "Ahmed",
+        "email": "dev@akxpert.com",
+        "title": null,
+        "avatar": null,
+        "person_type": "customer",
+        "status": "active",
+        "ip_address": null,
+        "last_ip_address": null,
+        "address_line_1": null,
+        "address_line_2": null,
+        "city": null,
+        "zip": null,
+        "state": null,
+        "country": null,
+        "note": null,
+        "hash": "0345174902fb72145ebc9eeea1e93a99",
+        "user_id": null,
+        "description": null,
+        "remote_uid": null,
+        "last_response_at": "2021-12-04 16:06:33",
+        "created_at": "2021-12-04 16:06:32",
+        "updated_at": "2021-12-04 16:06:33",
+        "full_name": "Rafi Ahmed",
+        "photo": "https://www.gravatar.com/avatar/8dceee8bf8e7e7bf01cb9843120e7c0b?s=128"
+    },
+    "widgets": null,
+    "tickets": [
+        {
+            "id": 143,
+            "title": "Can I use Fluent Support with Fluent Forms",
+            "status": "new",
+            "customer_id": "83",
+            "created_at": "2021-12-04 16:06:33"
+        }
+    ],
+    "fluentcrm_profile": false
+}
+```
+
+This endpoint will get a specific customer.
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/customers/<customer_id>`
+
+### URL Parameters
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+with[] | array | false | It takes widgets, tickets & fluentcrm_profile as value and return the data with the customer profile.
+
+## Update a customer
+
+```shell
+
+curl --location --request PUT 'https://yourdomain.com/wp-json/fluent-support/v2/customers/83?email=dev@akxpert.com&first_name=Rafi&address_line_1=353 South Milton Court' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+
+```
+
+> The above command update a customer.
+
+
+```json
+{
+    "message": "Customer has been updated",
+    "customer": {
+        "id": 83,
+        "first_name": "Rafi",
+        "last_name": "Ahmed",
+        "email": "dev@akxpert.com",
+        "title": "",
+        "avatar": null,
+        "person_type": "customer",
+        "status": "active",
+        "ip_address": "",
+        "last_ip_address": "",
+        "address_line_1": "353 South Milton Court",
+        "address_line_2": "33 Nobel Drive",
+        "city": "168 Fabien Boulevard",
+        "zip": "82363",
+        "state": "435 Milton Avenue",
+        "country": "",
+        "note": "",
+        "hash": "0345174902fb72145ebc9eeea1e93a99",
+        "user_id": "0",
+        "description": null,
+        "remote_uid": "0",
+        "last_response_at": "2021-12-04 16:06:33",
+        "created_at": "2021-12-04 16:06:32",
+        "updated_at": "2021-12-06 13:27:23",
+        "full_name": "Rafi Ahmed",
+        "photo": "https://www.gravatar.com/avatar/8dceee8bf8e7e7bf01cb9843120e7c0b?s=128"
+    }
+}
+```
+
+This endpoint will update a specific customer.
+
+### HTTP Request
+`PUT https://yourdomain.com/wp-json/fluent-support/v2/customers/<customer_id>`
+
+### URL Parameters
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+email | email | yes | Put customer email
+first_name | text | yes | Put customer first name
+last_name | text | no | Put customer last name
+title | text | no | Customer title example: owner example co.
+avatar | url | no | To change customer profile image put the image url here
+status | text | no | There are two values available for this field active & inactive
+address_line_1 | text | no | Customer address field one
+address_line_2 | text | no | Customer address field two
+city | text | no | Customer city field
+zip | text/int | no | Customer zip code field
+state | text | no | Customer state field
+country | text | no | Customer country field
+note | text | no | Add note for this customer
+
+## Delete a customer
+
+```shell
+
+curl --location --request DELETE 'https://yourdomain.com/wp-json/fluent-support/v2/customers/<customer_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+
+```
+
+> The above command delete a customer.
+
+```json
+
+{
+    "message": "Customer Deleted Successfully"
+}
+
+```
+
+This endpoint will delete a specific customer.
+
+### HTTP Request
+`DELETE https://yourdomain.com/wp-json/fluent-support/v2/customers/<customer_id>`
