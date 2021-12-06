@@ -1454,3 +1454,226 @@ Parameter | Type | Required| Description
 --------- | ---- | ------- | -----------
 from | date (YYYY-MM-DD) | no | Filter agent summary by date
 to| date (YYYY-MM-DD) | no | Filter agent summary by date
+
+# Saved Replies
+
+## Get Saved Replies
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/saved-replies' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command returns total replies done by user.
+
+```json
+{
+    "total": 4,
+    "per_page": 10,
+    "current_page": 1,
+    "last_page": 1,
+    "next_page_url": null,
+    "prev_page_url": null,
+    "from": 1,
+    "to": 4,
+    "data": [
+        {
+            "id": 5,
+            "created_by": "1",
+            "mailbox_id": null,
+            "product_id": "0",
+            "title": "Closing Ticket ",
+            "content": "<p>It has been my pleasure helping you.<br />Closing the tickets here. You can re-open it if you need any assistance.</p>\n<p>Thanks</p>",
+            "created_at": "2021-11-15 18:36:07",
+            "updated_at": "2021-11-15 18:36:07",
+            "person": null,
+            "product": null
+        },
+        {
+            "id": 3,
+            "created_by": "17",
+            "mailbox_id": null,
+            "product_id": "4",
+            "title": "Fluent Forms Activation",
+            "content": "<p>Hi this is me with your solution</p>\n<p>&nbsp;</p>",
+            "created_at": "2021-11-15 11:05:33",
+            "updated_at": "2021-11-15 18:36:57",
+            "person": null,
+            "product": {
+                "id": 4,
+                "source_uid": null,
+                "mailbox_id": null,
+                "title": "Fluent CRM",
+                "description": "",
+                "settings": null,
+                "source": "local",
+                "created_by": null,
+                "created_at": "2021-11-11 09:42:52",
+                "updated_at": "2021-11-11 09:42:52"
+            }
+        },
+        {
+            "id": 2,
+            "created_by": "1",
+            "mailbox_id": null,
+            "product_id": "0",
+            "title": "Email Change",
+            "content": "<p>Hello Carl,</p>\n<p>Sure, would you mind sharing a little information? such as information about the organization and the website url etc?</p>\n<p>Also, you need to open a support ticket from the organization's official email address.</p>\n<p>We provide 50% discount to our non-profit clients.</p>\n<p>Thanks</p>",
+            "created_at": "2021-11-12 12:46:48",
+            "updated_at": "2021-11-12 12:46:48",
+            "person": null,
+            "product": null
+        },
+        {
+            "id": 1,
+            "created_by": "1",
+            "mailbox_id": null,
+            "product_id": "0",
+            "title": "Installation Instruction",
+            "content": "<p>This is how you can install</p>\n<p>Thanks</p>",
+            "created_at": "2021-11-11 16:35:54",
+            "updated_at": "2021-11-12 18:47:45",
+            "person": null,
+            "product": null
+        }
+    ]
+}
+```
+
+This endpoint returns all saved replies templates.
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/saved-replies`
+
+### URL Parameters
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+page | int | no | Current page, default 1
+per_page | int | no | Render template per page, default 10
+search | text | no | Search by any value
+
+## Get a Specific Saved Reply
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/saved-replies/<reply_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> This endpoint returns a specific saved reply.
+
+```json
+{
+    "id": 1,
+    "created_by": "1",
+    "mailbox_id": null,
+    "product_id": "0",
+    "title": "Installation Instruction",
+    "content": "<p>This is how you can install</p>\n<p>Thanks</p>",
+    "created_at": "2021-11-11 16:35:54",
+    "updated_at": "2021-11-12 18:47:45",
+    "person": null,
+    "product": null
+}
+```
+
+This endpoint returns a specific saved reply.
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/saved-replies/<reply_id>`
+
+## Add New Saved Reply
+
+```shell
+curl --location --request POST 'https://yourdomain.com/wp-json/fluent-support/v2/saved-replies' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command creates a new saved reply.
+
+```json
+
+{
+    "reply": {
+        "title": "Ticket Closing",
+        "content": "<p>I am closing this ticket here. Let us know if you have any other issues.</p>",
+        "product_id": "",
+        "created_by": 1,
+        "updated_at": "2021-12-06 18:16:51",
+        "created_at": "2021-12-06 18:16:51",
+        "id": 2
+    },
+    "message": "Reply Template has been created"
+}
+
+```
+
+This endpoint creates a new saved reply.
+
+### HTTP Request
+`POST https://yourdomain.com/wp-json/fluent-support/v2/saved-replies`
+
+### URL Parameters
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+title | text | yes | Set a title for the saved reply template
+content | text | yes | Set content of this reply
+product_id | int | no | Set this reply for a specific product, but you cam use it anywhere in reply
+
+## Update a Saved Reply Template
+
+```shell
+curl --location --request PUT 'https://yourdomain.com/wp-json/fluent-support/v2/saved-replies/<reply_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command will update a specific saved reply.
+
+```json
+{
+    "message": "Reply Template has been updated",
+    "reply": {
+        "id": 1,
+        "created_by": "1",
+        "mailbox_id": null,
+        "product_id": "2",
+        "title": "Update License",
+        "content": "<p>Please contact our billing department regarding this query.</p>",
+        "created_at": "2021-12-01 15:55:28",
+        "updated_at": "2021-12-06 18:23:35"
+    }
+}
+```
+
+This endpoint will update a specific saved reply.
+
+### HTTP Request
+
+`PUT https://yourdomain.com/wp-json/fluent-support/v2/saved-replies/<reply_id>`
+
+### URL Parameters
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+title | text | yes | Update the title for the saved reply template
+content | text | yes | Update the content of this reply
+product_id | int | no | Update the product
+
+## Delete Saved Reply
+
+```shell
+curl --location --request DELETE 'https://yourdomain.com/wp-json/fluent-support/v2/saved-replies/<reply_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command delete a specific saved reply.
+
+```json
+{
+    "message": "Selected Reply Template has been deleted"
+}
+```
+
+This endpoint will delete a specific ticket.
+
+### HTTP Request
+
+`DELETE https://yourdomain.com/wp-json/fluent-support/v2/saved-replies/<reply_id>`
