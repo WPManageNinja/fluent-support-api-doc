@@ -2118,3 +2118,493 @@ This endpoint will delete mailbox.
 Parameter | Type | Description
 --------- | ---- | -----------
 fallback_id - required | int | To delete a mailbox you must need to transfer all the tickets associated with this mailbox to another mailbox, so put the targeted mailbox id here
+
+# Workflow
+
+## Get Workflows
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/workflows' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+> The above endpoint returns available workflows
+
+```json
+{
+    "workflows": {
+        "total": 2,
+        "per_page": 10,
+        "current_page": 1,
+        "last_page": 1,
+        "next_page_url": null,
+        "prev_page_url": null,
+        "from": 1,
+        "to": 2,
+        "data": [
+            {
+                "id": 5,
+                "created_by": "1",
+                "priority": "10",
+                "title": "Add Internal Note",
+                "trigger_key": "",
+                "trigger_type": "manual",
+                "settings": "",
+                "status": "published",
+                "last_ran_at": "0000-00-00 00:00:00",
+                "created_at": "2021-12-07 15:14:29",
+                "updated_at": "2021-12-07 15:15:48"
+            },
+            {
+                "id": 4,
+                "created_by": "1",
+                "priority": "10",
+                "title": "Assign Agent",
+                "trigger_key": "fluent_support/ticket_created",
+                "trigger_type": "automatic",
+                "settings": {
+                    "conditions": [
+                        [
+                            {
+                                "data_key": "message.title",
+                                "data_operator": "contains",
+                                "data_value": "Fluent Support"
+                            }
+                        ]
+                    ]
+                },
+                "status": "published",
+                "last_ran_at": "0000-00-00 00:00:00",
+                "created_at": "2021-12-07 15:08:37",
+                "updated_at": "2021-12-07 15:09:25",
+                "trigger_human_name": "On Ticket Creation"
+            }
+        ]
+    }
+}
+```
+This endpoint returns available workflows.
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/workflows`
+
+### URL Parameters
+Parameters | Type | Description
+---------- | ---- | -----------
+per_page | int | How many workflows you want to show in page
+page | int | Current page number
+search |  text | Search workflows by any specific value
+
+## Get a Specific Workflow
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/workflows/<workflow_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command will return a specific workflow
+
+```json
+{
+    "actions": [
+        {
+            "id": 15,
+            "title": "Add Internal Note",
+            "action_name": "fs_action_create_note",
+            "workflow_id": "5",
+            "settings": {
+                "response_body": "<p>We need to test this.</p>"
+            },
+            "created_at": "2021-12-07 15:15:48",
+            "updated_at": "2021-12-07 15:15:48"
+        }
+    ],
+    "action_fields": {
+        "fs_action_create_response": {
+            "title": "Add Response",
+            "settings_defaults": {
+                "response_body": ""
+            },
+            "fields": {
+                "response_body": {
+                    "type": "wp-editor",
+                    "label": "Response Body"
+                }
+            }
+        },
+        "fs_action_assign_agent": {
+            "title": "Assign Agent",
+            "settings_defaults": {
+                "agent_id": "",
+                "skip_if_exist": "yes"
+            },
+            "fields": {
+                "agent_id": {
+                    "type": "agent-selectors",
+                    "label": "Select Agent",
+                    "extra_options": [
+                        {
+                            "id": "unassigned",
+                            "title": "Unassigned"
+                        }
+                    ]
+                },
+                "skip_if_exist": {
+                    "type": "inline-checkbox",
+                    "true_label": "yes",
+                    "false_label": "no",
+                    "checkbox_label": "Skip if ticket already have a agent assigned"
+                }
+            }
+        },
+        "fs_action_create_note": {
+            "title": "Add Internal Note",
+            "settings_defaults": {
+                "response_body": ""
+            },
+            "fields": {
+                "response_body": {
+                    "type": "wp-editor",
+                    "label": "Note Body"
+                }
+            }
+        },
+        "fs_action_close_ticket": {
+            "title": "Close Ticket",
+            "settings_defaults": {
+                "agent_id": "",
+                "fallback_agent": ""
+            },
+            "fields": []
+        },
+        "fs_action_add_tags": {
+            "title": "Add Tag(s)",
+            "settings_defaults": {
+                "tag_ids": []
+            },
+            "fields": {
+                "tag_ids": {
+                    "is_multiple": true,
+                    "label": "Select Tags",
+                    "type": "tag-selectors",
+                    "placeholder": "Select Tags"
+                }
+            }
+        },
+        "fs_action_remove_tags": {
+            "title": "Remove Tag(s)",
+            "settings_defaults": {
+                "tag_ids": []
+            },
+            "fields": {
+                "tag_ids": {
+                    "is_multiple": true,
+                    "label": "Select Tags",
+                    "type": "tag-selectors",
+                    "placeholder": "Select Tags"
+                }
+            }
+        },
+        "fs_delete_ticket": {
+            "title": "Delete Ticket",
+            "settings_defaults": {
+                "ticket_delete_html": ""
+            },
+            "fields": {
+                "ticket_delete_html": {
+                    "type": "html-viewer",
+                    "html": "<p><br />Ticket will be deleted permanently and no further action will run</p>"
+                }
+            }
+        },
+        "fs_block_customer": {
+            "title": "Block Ticket Submitter (Customer)",
+            "settings_defaults": {
+                "customer_block_html": ""
+            },
+            "fields": {
+                "customer_block_html": {
+                    "type": "html-viewer",
+                    "html": "<p><br />Customer will be blocked and can not create new ticket or access to previous tickets</p>"
+                }
+            }
+        }
+    },
+    "trigger_fields": {
+        "triggers": {
+            "fluent_support/ticket_created": {
+                "title": "On Ticket Creation",
+                "description": "This workflow will be initiated on when a new ticket has been submitted by customer",
+                "supported_conditions": [
+                    "customer.first_name",
+                    "customer.last_name",
+                    "customer.email",
+                    "message.title",
+                    "message.content",
+                    "message.attachments",
+                    "ticket.client_priority",
+                    "ticket.mailbox_id",
+                    "message.added_time_range",
+                    "message.added_date_range",
+                    "ticket.product_id"
+                ]
+            },
+            "fluent_support/response_added_by_customer": {
+                "title": "On Customer Response",
+                "description": "Workflow will be initiated when customer add a response to an existing ticket",
+                "supported_conditions": [
+                    "customer.first_name",
+                    "customer.last_name",
+                    "customer.email",
+                    "message.content",
+                    "message.attachments",
+                    "ticket.agent_id",
+                    "ticket.mailbox_id",
+                    "message.added_time_range",
+                    "message.added_date_range",
+                    "ticket.product_id"
+                ]
+            }
+        },
+        "conditions": {
+            "customer.first_name": {
+                "title": "Customer First Name",
+                "data_type": "string",
+                "group": "Customer"
+            },
+            "customer.last_name": {
+                "title": "Customer Last Name",
+                "data_type": "string",
+                "group": "Customer"
+            },
+            "customer.email": {
+                "title": "Customer Email",
+                "data_type": "string",
+                "group": "Customer"
+            },
+            "message.title": {
+                "title": "Ticket Title",
+                "data_type": "string",
+                "group": "Message"
+            },
+            "message.content": {
+                "title": "Message Content",
+                "data_type": "string",
+                "group": "Message"
+            },
+            "message.attachments": {
+                "title": "Attachments",
+                "data_type": "yes_no",
+                "default": "yes",
+                "options": {
+                    "yes": "Has an attachment",
+                    "no": "Does not have an attachment"
+                },
+                "group": "Message"
+            },
+            "message.added_time_range": {
+                "title": "Added Time Range",
+                "data_type": "time_range",
+                "group": "Message"
+            },
+            "message.added_date_range": {
+                "title": "Added Date Range",
+                "data_type": "date_range",
+                "group": "Message"
+            },
+            "ticket.client_priority": {
+                "title": "Ticket Priority (Client)",
+                "data_type": "single_dropdown",
+                "options": {
+                    "normal": "Normal",
+                    "medium": "Medium",
+                    "critical": "Critical"
+                },
+                "group": "Ticket"
+            },
+            "ticket.product_id": {
+                "title": "Selected Product",
+                "data_type": "single_dropdown",
+                "options": {
+                    "1": "Fluent Support",
+                    "2": "Fluent Forms"
+                },
+                "group": "Ticket"
+            }
+        }
+    },
+    "workflow": {
+        "id": 5,
+        "created_by": "1",
+        "priority": "10",
+        "title": "Add Internal Note",
+        "trigger_key": "",
+        "trigger_type": "manual",
+        "settings": "",
+        "status": "published",
+        "last_ran_at": "0000-00-00 00:00:00",
+        "created_at": "2021-12-07 15:14:29",
+        "updated_at": "2021-12-07 15:15:48"
+    }
+}
+```
+
+This endpoint will return a specific workflow.
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/workflows/<workflow_id>`
+
+### URL Parameters
+Parameter | Type | Description
+--------- | ---- | -----------
+with[] | text | This takes two param, `action_fields` & `trigger_fields`
+
+## Update a Workflow
+
+```shell
+curl --location --request POST 'https://yourdomain.com/wp-json/fluent-support/v2/workflows/<workflow_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+> The above command will update a specific workflow by id
+
+```json
+{
+    "message": "Workflow has been updated",
+    "workflow": {
+        "id": 6,
+        "created_by": "1",
+        "priority": "10",
+        "title": "Close Ticket",
+        "trigger_key": "fluent_support/response_added_by_customer",
+        "trigger_type": "automatic",
+        "settings": {
+            "conditions": [
+                [
+                    {
+                        "data_key": "message.content",
+                        "data_operator": "contains",
+                        "data_value": "Thank You"
+                    }
+                ]
+            ]
+        },
+        "status": "draft",
+        "last_ran_at": "",
+        "created_at": "2021-12-07 17:54:15",
+        "updated_at": "2021-12-07 17:54:44"
+    },
+    "actions": [
+        {
+            "id": 17,
+            "title": "Close Ticket",
+            "action_name": "fs_action_close_ticket",
+            "workflow_id": "6",
+            "settings": {
+                "agent_id": "ticket_agent_id",
+                "fallback_agent": "1"
+            },
+            "created_at": "2021-12-07 17:54:44",
+            "updated_at": "2021-12-07 17:54:44"
+        }
+    ]
+}
+```
+
+This endpoint update a specific workflow by id.
+
+### HTTP Request
+
+`POST https://yourdomain.com/wp-json/fluent-support/v2/workflows/<workflow_id>`
+
+### URL Parameters
+Parameter | Type | Description
+--------- | ---- | -----------
+actions[0][action_name] - required | text | Define the specific action by action name
+actions[0][title] | text | Update action title
+actions[0][settings][setting_key_here] -required | text | Specify the setting key
+workflow[priority] | int | Update workflow priority
+workflow[title] | text | Update workflow title
+
+## Create a New Workflow
+```shell
+curl --location --request POST 'https://yourdomain.com/wp-json/fluent-support/v2/workflows' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command will create a new workflow
+
+```json
+{
+    "message": "Workflow has been updated",
+    "workflow": {
+        "id": 7,
+        "created_by": "1",
+        "priority": "10",
+        "title": "Close Ticket",
+        "trigger_key": "fluent_support/response_added_by_customer",
+        "trigger_type": "automatic",
+        "settings": {
+            "conditions": [
+                [
+                    {
+                        "data_key": "message.content",
+                        "data_operator": "contains",
+                        "data_value": "Thanks You"
+                    }
+                ]
+            ]
+        },
+        "status": "published",
+        "last_ran_at": "",
+        "created_at": "2021-12-07 18:11:08",
+        "updated_at": "2021-12-07 18:11:53"
+    },
+    "actions": [
+        {
+            "id": 22,
+            "title": "Close Ticket on Thank You",
+            "action_name": "fs_action_close_ticket",
+            "workflow_id": "7",
+            "settings": {
+                "agent_id": "ticket_agent_id",
+                "fallback_agent": "1"
+            },
+            "created_at": "2021-12-07 18:11:53",
+            "updated_at": "2021-12-07 18:11:53"
+        }
+    ]
+}
+```
+
+This endpoint will create a new workflow.
+
+### HTTP Request
+`POST https://yourdomain.com/wp-json/fluent-support/v2/workflows`
+
+### URL Parameters
+Parameters | Type | Description
+---------- | ---- | -----------
+actions[0][title] | text | Provide action title
+actions[0][action_name] | text | Specify the action by action key
+workflow[priority] | int | Specify the workflow priority
+workflow[title] | text | Specify the workflow title
+workflow[trigger_key] | text | Specify the trigger key
+workflow[trigger_type] | text | Specify the trigger type manual or automatic
+workflow[settings][conditions][0][0][data_key] | text | Condition data key
+workflow[settings][conditions][0][0][data_operator] | mixed | Define condition logic
+workflow[settings][conditions][0][0][data_value] | mixed | Condition value
+workflow[status] | text | Define workflow status
+
+## Delete a Workflow
+
+```shell
+curl --location --request DELETE 'https://yourdomain.com/wp-json/fluent-support/v2/workflows/<workflow_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command will delete a specific workflow by id
+
+```json
+{
+    "message": "Selected workflow has been deleted"
+}
+```
+
+This endpoint will delete a specific workflow by id
