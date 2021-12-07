@@ -1250,7 +1250,7 @@ curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/
 }
 ```
 
-This endpoint will return the stats of total replies by agents.
+This endpoint will returns total summary of agents.
 
 ### HTTP Request
 `GET https://yourdomain.com/wp-json/fluent-support/v2/reports/agents-summary`
@@ -1260,3 +1260,861 @@ Parameter | Type | Required| Description
 --------- | ---- | ------- | -----------
 from | date (YYYY-MM-DD) | no | Filter agent summary by date
 to| date (YYYY-MM-DD) | no | Filter agent summary by date
+
+# Get Personal Reports
+
+## Get Overall Stats
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/my-reports' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command returns user's personal overall stats.
+
+```json
+{
+    "overall_reports": {
+        "replies_count": {
+            "title": "Total Replies",
+            "count": 559
+        },
+        "interactions_count": {
+            "title": "Total Interactions",
+            "count": 392
+        },
+        "total_closed": {
+            "title": "Total Closed",
+            "count": 55
+        }
+    }
+}
+```
+
+This endpoint will return user's personal overall stats
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/my-reports`
+
+## Get Ticket Resolve Stats
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/my-reports/tickets-resolve-growth' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command returns total ticket closed by user.
+
+```json
+{
+    "stats": {
+        "2021-11-06": 34,
+        "2021-11-07": 38,
+        "2021-11-08": 26,
+        "2021-11-09": 37,
+        "2021-11-10": 28,
+        "2021-11-11": 21,
+        "2021-11-12": 20,
+        "2021-11-13": 22,
+        "2021-11-14": 32,
+        "2021-11-15": 36,
+        "2021-11-16": 27,
+        "2021-11-17": 18,
+        "2021-11-18": 31,
+        "2021-11-19": 42,
+        "2021-11-20": 33,
+        "2021-11-21": 17,
+        "2021-11-22": 29,
+        "2021-11-23": 30,
+        "2021-11-24": 19,
+        "2021-11-25": 40,
+        "2021-11-26": 41,
+        "2021-11-27": 30,
+        "2021-11-28": 50,
+        "2021-11-29": 52,
+        "2021-11-30": 43,
+        "2021-12-01": 51,
+        "2021-12-02": 20,
+        "2021-12-03": 29,
+        "2021-12-04": 42,
+        "2021-12-05": 30,
+        "2021-12-06": 25
+    }
+}
+```
+
+This endpoint returns total ticket closed by user.
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/my-reports/tickets-resolve-growth`
+
+### URL Parameters
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+date_range[] | date (YYYY-MM-DD) | no | To filter reports by date range use this param like date_range[]=2021-12-01&date_range[]=2021-12-31
+
+## Get Ticket Response Growth
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/my-reports/response-growth' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command returns total replies done by user.
+
+```json
+{
+    "stats": {
+        "2021-11-06": 34,
+        "2021-11-07": 38,
+        "2021-11-08": 26,
+        "2021-11-09": 37,
+        "2021-11-10": 28,
+        "2021-11-11": 21,
+        "2021-11-12": 20,
+        "2021-11-13": 22,
+        "2021-11-14": 32,
+        "2021-11-15": 36,
+        "2021-11-16": 27,
+        "2021-11-17": 18,
+        "2021-11-18": 31,
+        "2021-11-19": 42,
+        "2021-11-20": 33,
+        "2021-11-21": 17,
+        "2021-11-22": 29,
+        "2021-11-23": 30,
+        "2021-11-24": 19,
+        "2021-11-25": 40,
+        "2021-11-26": 41,
+        "2021-11-27": 30,
+        "2021-11-28": 50,
+        "2021-11-29": 52,
+        "2021-11-30": 43,
+        "2021-12-01": 51,
+        "2021-12-02": 20,
+        "2021-12-03": 29,
+        "2021-12-04": 42,
+        "2021-12-05": 30,
+        "2021-12-06": 25
+    }
+}
+```
+
+This endpoint returns total replies done by user.
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/my-reports/response-growth`
+
+### URL Parameters
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+date_range[] | date (YYYY-MM-DD) | no | To filter reports by date range use this param like date_range[]=2021-12-01&date_range[]=2021-12-31
+
+
+## Get User Summary
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/my-reports/my-summary' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command returns user's summary.
+
+```json
+[
+    {
+        "id": 26,
+        "first_name": "Michael ",
+        "last_name": "Smith",
+        "stats": {
+            "interactions": 18,
+            "responses": 30,
+            "opens": "50",
+            "closed": 6,
+            "waiting_tickets": 42
+        },
+        "active_stat": {
+            "average_waiting": "4 days",
+            "max_waiting": "2 weeks",
+            "waiting_tickets": "42"
+        },
+        "full_name": "Michael  Smith",
+        "photo": "https://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?s=128"
+    }
+]
+```
+
+This endpoint returns total summary of the current agent.
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/my-reports/my-summary`
+
+### URL Parameters
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+from | date (YYYY-MM-DD) | no | Filter agent summary by date
+to| date (YYYY-MM-DD) | no | Filter agent summary by date
+
+# Saved Replies
+
+## Get Saved Replies
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/saved-replies' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command returns total replies done by user.
+
+```json
+{
+    "total": 4,
+    "per_page": 10,
+    "current_page": 1,
+    "last_page": 1,
+    "next_page_url": null,
+    "prev_page_url": null,
+    "from": 1,
+    "to": 4,
+    "data": [
+        {
+            "id": 5,
+            "created_by": "1",
+            "mailbox_id": null,
+            "product_id": "0",
+            "title": "Closing Ticket ",
+            "content": "<p>It has been my pleasure helping you.<br />Closing the tickets here. You can re-open it if you need any assistance.</p>\n<p>Thanks</p>",
+            "created_at": "2021-11-15 18:36:07",
+            "updated_at": "2021-11-15 18:36:07",
+            "person": null,
+            "product": null
+        },
+        {
+            "id": 3,
+            "created_by": "17",
+            "mailbox_id": null,
+            "product_id": "4",
+            "title": "Fluent Forms Activation",
+            "content": "<p>Hi this is me with your solution</p>\n<p>&nbsp;</p>",
+            "created_at": "2021-11-15 11:05:33",
+            "updated_at": "2021-11-15 18:36:57",
+            "person": null,
+            "product": {
+                "id": 4,
+                "source_uid": null,
+                "mailbox_id": null,
+                "title": "Fluent CRM",
+                "description": "",
+                "settings": null,
+                "source": "local",
+                "created_by": null,
+                "created_at": "2021-11-11 09:42:52",
+                "updated_at": "2021-11-11 09:42:52"
+            }
+        },
+        {
+            "id": 2,
+            "created_by": "1",
+            "mailbox_id": null,
+            "product_id": "0",
+            "title": "Email Change",
+            "content": "<p>Hello Carl,</p>\n<p>Sure, would you mind sharing a little information? such as information about the organization and the website url etc?</p>\n<p>Also, you need to open a support ticket from the organization's official email address.</p>\n<p>We provide 50% discount to our non-profit clients.</p>\n<p>Thanks</p>",
+            "created_at": "2021-11-12 12:46:48",
+            "updated_at": "2021-11-12 12:46:48",
+            "person": null,
+            "product": null
+        },
+        {
+            "id": 1,
+            "created_by": "1",
+            "mailbox_id": null,
+            "product_id": "0",
+            "title": "Installation Instruction",
+            "content": "<p>This is how you can install</p>\n<p>Thanks</p>",
+            "created_at": "2021-11-11 16:35:54",
+            "updated_at": "2021-11-12 18:47:45",
+            "person": null,
+            "product": null
+        }
+    ]
+}
+```
+
+This endpoint returns all saved replies templates.
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/saved-replies`
+
+### URL Parameters
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+page | int | no | Current page, default 1
+per_page | int | no | Render template per page, default 10
+search | text | no | Search by any value
+
+## Get a Specific Saved Reply
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/saved-replies/<reply_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> This endpoint returns a specific saved reply.
+
+```json
+{
+    "id": 1,
+    "created_by": "1",
+    "mailbox_id": null,
+    "product_id": "0",
+    "title": "Installation Instruction",
+    "content": "<p>This is how you can install</p>\n<p>Thanks</p>",
+    "created_at": "2021-11-11 16:35:54",
+    "updated_at": "2021-11-12 18:47:45",
+    "person": null,
+    "product": null
+}
+```
+
+This endpoint returns a specific saved reply.
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/saved-replies/<reply_id>`
+
+## Add New Saved Reply
+
+```shell
+curl --location --request POST 'https://yourdomain.com/wp-json/fluent-support/v2/saved-replies' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command creates a new saved reply.
+
+```json
+
+{
+    "reply": {
+        "title": "Ticket Closing",
+        "content": "<p>I am closing this ticket here. Let us know if you have any other issues.</p>",
+        "product_id": "",
+        "created_by": 1,
+        "updated_at": "2021-12-06 18:16:51",
+        "created_at": "2021-12-06 18:16:51",
+        "id": 2
+    },
+    "message": "Reply Template has been created"
+}
+
+```
+
+This endpoint creates a new saved reply.
+
+### HTTP Request
+`POST https://yourdomain.com/wp-json/fluent-support/v2/saved-replies`
+
+### URL Parameters
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+title | text | yes | Set a title for the saved reply template
+content | text | yes | Set content of this reply
+product_id | int | no | Set this reply for a specific product, but you cam use it anywhere in reply
+
+## Update a Saved Reply Template
+
+```shell
+curl --location --request PUT 'https://yourdomain.com/wp-json/fluent-support/v2/saved-replies/<reply_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command will update a specific saved reply.
+
+```json
+{
+    "message": "Reply Template has been updated",
+    "reply": {
+        "id": 1,
+        "created_by": "1",
+        "mailbox_id": null,
+        "product_id": "2",
+        "title": "Update License",
+        "content": "<p>Please contact our billing department regarding this query.</p>",
+        "created_at": "2021-12-01 15:55:28",
+        "updated_at": "2021-12-06 18:23:35"
+    }
+}
+```
+
+This endpoint will update a specific saved reply.
+
+### HTTP Request
+
+`PUT https://yourdomain.com/wp-json/fluent-support/v2/saved-replies/<reply_id>`
+
+### URL Parameters
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+title | text | yes | Update the title for the saved reply template
+content | text | yes | Update the content of this reply
+product_id | int | no | Update the product
+
+## Delete Saved Reply
+
+```shell
+curl --location --request DELETE 'https://yourdomain.com/wp-json/fluent-support/v2/saved-replies/<reply_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command delete a specific saved reply.
+
+```json
+{
+    "message": "Selected Reply Template has been deleted"
+}
+```
+
+This endpoint will delete a specific ticket.
+
+### HTTP Request
+
+`DELETE https://yourdomain.com/wp-json/fluent-support/v2/saved-replies/<reply_id>`
+
+# Activities
+
+## Get Activities
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/activity-logger' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command returns activities
+
+```json
+{
+    "activities": {
+        "total": 189,
+        "per_page": 10,
+        "current_page": 1,
+        "last_page": 19,
+        "next_page_url": "/wp-json/fluent-support/v2/activity-logger?page=2",
+        "prev_page_url": null,
+        "from": 1,
+        "to": 10,
+        "data": [
+            {
+                "id": 507,
+                "person_id": "85",
+                "person_type": "customer",
+                "event_type": "fluent_support/ticket_created",
+                "object_id": "193",
+                "object_type": "ticket",
+                "description": "<a class=\"fs_link_trans fs_pr\" href=\"#view_customer\">Giulio Nieder</a> created a <a class=\"fs_link_trans fs_tk\" href=\"#view_ticket\">Ticket: Hello, I'm considering FluentSupport. I tried the free version, and t looks l... (#168)</a> via email",
+                "created_at": "2021-12-06 09:31:02",
+                "updated_at": "2021-12-06 09:31:02",
+                "person": {
+                    "first_name": "Giulio",
+                    "person_type": "customer",
+                    "last_name": "Nieder",
+                    "id": 85,
+                    "avatar": null,
+                    "full_name": "Giulio Nieder",
+                    "photo": "https://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?s=128"
+                }
+            }
+        ]
+    },
+    "settings": {
+        "delete_days": 14,
+        "disable_logs": "no"
+    }
+}
+```
+
+This endpoint returns all activities
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/activity-logger`
+
+### URL Parameters
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+per_page | int | no | Activities to show per page, default 10
+page | int | no | Activity page number, default 1
+
+## Get Activity Settings
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/activity-logger/settings' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command returns activity settings.
+
+```json
+{
+    "activity_settings": {
+        "delete_days": 1,
+        "disable_logs": "no"
+    }
+}
+```
+
+This endpoint returns activity settings.
+
+### HTTP Request
+
+`GET https://yourdomain.com/wp-json/fluent-support/v2/activity-logger/settings`
+
+## Update Activity Settings
+
+```shell
+curl --location --request POST 'https://yourdomain.com/wp-json/fluent-support/v2/activity-logger/settings' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command updates activity settings.
+
+```json
+{
+    "message": "Activity settings has been updated"
+}
+```
+
+This endpoint updates activity settings.
+
+### HTTP Request
+
+`POST https://yourdomain.com/wp-json/fluent-support/v2/activity-logger/settings`
+
+### URL Parameters
+
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+activity_settings[delete_days] | int | no | Delete activities automatically & you can define after how many days you want to delete this
+activity_settings[disable_logs] | text | no | This takes yes/no value, use yes to disable log
+
+# Mailbox
+
+## Get Mailboxes
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/mailboxes' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+> The above command returns all mailboxes
+
+```json
+[
+    {
+        "id": 1,
+        "name": "Fluent Support",
+        "slug": "fluent-support",
+        "box_type": "web",
+        "email": "fluentsupport@mail.com",
+        "mapped_email": "",
+        "email_footer": "<p>Hi There,</p>\n<p>Here is your data.</p>\n<p>Customer First name: {{customer.first_name}}</p>\n<p>Customer Last name: {{customer.last_name}}</p>\n<p>Customer Email: {{customer.email}}</p>\n<p>Ticket ID: {{ticket.id}}</p>\n<p>Ticket Public URL: {{ticket.public_url}}</p>\n<p>Ticket Title: {{ticket.title}}</p>",
+        "settings": {
+            "admin_email_address": "fluentsupport@mail.com"
+        },
+        "avatar": "",
+        "created_by": "1",
+        "is_default": "yes",
+        "created_at": "2021-11-18 15:08:42",
+        "updated_at": "2021-11-25 18:45:27",
+        "tickets_count": 113
+    },
+    {
+        "id": 3,
+        "name": "MailHog",
+        "slug": "mailhog",
+        "box_type": "web",
+        "email": "mailhog@mail.com",
+        "mapped_email": "",
+        "email_footer": null,
+        "settings": {
+            "admin_email_address": "admin_mailhog@mail.com"
+        },
+        "avatar": null,
+        "created_by": null,
+        "is_default": "no",
+        "created_at": "2021-11-20 18:49:54",
+        "updated_at": "2021-11-20 18:49:54",
+        "tickets_count": 137
+    },
+    {
+        "id": 4,
+        "name": "Fluent Support Help Desk",
+        "slug": "fluent-support-help_desk",
+        "box_type": "email",
+        "email": "help.fluentsupport@mail.com",
+        "mapped_email": "",
+        "email_footer": null,
+        "settings": {
+            "admin_email_address": "admin.fluentsupport@mail.com"
+        },
+        "avatar": null,
+        "created_by": null,
+        "is_default": "no",
+        "created_at": "2021-11-20 18:59:10",
+        "updated_at": "2021-11-20 18:59:10",
+        "tickets_count": 0
+    }
+]
+```
+
+This endpoint returns all mailboxes.
+
+### HTTP Request
+
+`GET https://yourdomain.com/wp-json/fluent-support/v2/mailboxes`
+
+## Get a Specific Mailbox
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/mailboxes/<mailbox_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+> The above command returns a specific mailbox
+
+```json
+{
+    "mailbox": {
+        "id": 1,
+        "name": "Fluent Support",
+        "slug": "fluent-support",
+        "box_type": "web",
+        "email": "fluentsupport@mail.com",
+        "mapped_email": "",
+        "email_footer": "<p>Hi There,</p>\n<p>Here is your data.</p>\n<p>Customer First name: {{customer.first_name}}</p>\n<p>Customer Last name: {{customer.last_name}}</p>\n<p>Customer Email: {{customer.email}}</p>\n<p>Ticket ID: {{ticket.id}}</p>\n<p>Ticket Public URL: {{ticket.public_url}}</p>\n<p>Ticket Title: {{ticket.title}}</p>",
+        "settings": {
+            "admin_email_address": "fluentsupport@mail.com"
+        },
+        "avatar": "",
+        "created_by": "1",
+        "is_default": "yes",
+        "created_at": "2021-11-18 15:08:42",
+        "updated_at": "2021-11-25 18:45:27",
+        "tickets_count": 113
+    },
+}
+```
+
+This endpoint returns a specific mailbox.
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/mailboxes/<mailbox_id>`
+
+## Update a Mailbox
+
+```shell
+curl --location --request PUT 'https://yourdomain.com/wp-json/fluent-support/v2/mailboxes/<mailbox_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+> The above command update a specific mailbox
+
+```json
+{
+    "message": "Mailbox has been saved",
+    "mailbox": {
+        "id": 1,
+        "name": "Fluent Support Email Box",
+        "slug": "fluent-email-box",
+        "box_type": "web",
+        "email": "support@fluentsupport.com",
+        "mapped_email": "",
+        "email_footer": "<p>There You From Footer {{customer.first_name}}</p>\n<p>Ticket ID: {{ticket.id}}<br />Ticket Public URL: {{ticket.public_url}}<br />Ticket Title: {{ticket.title}}</p>",
+        "settings": {
+            "admin_email_address": "support@fluentsupport.com"
+        },
+        "avatar": "",
+        "created_by": "1",
+        "is_default": "yes",
+        "created_at": "2021-11-10 10:43:36",
+        "updated_at": "2021-12-06 14:32:43"
+    }
+}
+```
+
+This endpoint will update a specific mailbox.
+
+### HTTP Request
+
+`PUT https://yourdomain.com/wp-json/fluent-support/v2/mailboxes/<mailbox_id>`
+
+### URL Parameters
+
+Parameter | Type | Description
+--------- | ---- | -----------
+business[name] | text | Updates mailbox name
+business[email] | email | Updates mailbox email
+business[mapped_email] | email | Updates mailbox mapped email
+business[settings][admin_email_address] | email | Updates mailbox admin email
+business[box_type] | text | Updates mailbox type (web/email)
+business[email_footer] | text | Updates mailbox email footer
+business[is_default] | text | Define if the mailbox is default or not (yes/no)
+
+## Get Mailbox Email Configs
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/mailboxes/<mailbox_id>/email_configs' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command returns mailbox email configs in JSON structure
+
+```json
+    {
+    "email_configs": [
+        {
+            "key": "ticket_created_email_to_customer",
+            "title": "Ticket Created (To Customer)",
+            "email_subject": "Re: {{ticket.title}} #{{ticket.id}}",
+            "email_body": "<p>Hi <strong><em>{{customer.full_name}}</em>,</strong></p><p>Your request (<a href=\"{{ticket.public_url}}\">#{{ticket.id}}</a>) has been received, and is being reviewed by our support staff.</p><p>To add additional comments, follow the link below:</p><h4><a href=\"{{ticket.public_url}}\">View Ticket</a></h4><p>&nbsp;</p><p>or follow this link: {{ticket.public_url}}</p><hr /><p>{{business.name}}</p>",
+            "status": "yes",
+            "can_edit_subject": "yes",
+            "description": "This email will be sent when a customer submit a support ticket"
+        },
+        {
+            "key": "ticket_replied_by_agent_email_to_customer",
+            "title": "Replied by Agent (To Customer)",
+            "email_subject": "Re: {{ticket.title}} #{{ticket.id}}",
+            "email_body": "<p>Hi <strong><em>{{customer.full_name}}</em>,</strong></p><p>An agent just replied to your ticket \"<strong>{{ticket.title}}</strong>\" (<a href=\"{{ticket.public_url}}\">#{{ticket.id}}</a>). To view his reply or add additional comments, click the button below:</p><h4><a href=\"{{ticket.public_url}}\">View Ticket</a></h4><p>or follow this link: {{ticket.public_url}}</p><hr /><p>Regards,<br />{{business.name}}</p>",
+            "status": "yes",
+            "can_edit_subject": "yes"
+        },
+        {
+            "key": "ticket_closed_by_agent_email_to_customer",
+            "title": "Ticket Closed by Agent (To Customer)",
+            "email_subject": "Re: {{ticket.title}} #{{ticket.id}}",
+            "email_body": "<p>Hi <strong><em>{{customer.full_name}},</strong></p><p>Your ticket - {{ticket.title}}</p><p>We hope that the ticket was resolved to your satisfaction. If you feel that the ticket should not be closed or if the ticket has not been resolved, please reopen the ticket (<a href=\"{{ticket.public_url}}\">#{{ticket.id}}</a>)</p><p>Regards,<br />{{business.name}}</p>",
+            "status": "yes",
+            "can_edit_subject": "yes",
+            "description": "This email will be sent when an agent close a ticket"
+        },
+        {
+            "key": "ticket_created_email_to_admin",
+            "title": "Ticket Created (To Admin)",
+            "email_subject": "New Ticket: {{ticket.title}} #{{ticket.id}}",
+            "email_body": "<p>A new ticket (<a href=\"{{ticket.admin_url}}\">{{ticket.title}}</a>) as been submitted by {{customer.full_name}}</p><h4>Ticket Body</h4><p>{{ticket.content}}</p><p><b><a href=\"{{ticket.admin_url}}\">View Ticket</a></b></p>",
+            "status": "yes",
+            "can_edit_subject": "yes"
+        },
+        {
+            "key": "ticket_replied_by_customer_email_to_admin",
+            "title": "Replied by Customer (To Agent/Admin)",
+            "email_subject": "New Response: {{ticket.title}} #{{ticket.id}}",
+            "email_body": "<p>A new response has been added to \"<a href=\"{{ticket.admin_url}}\">{{ticket.title}}</a>\"  by {{customer.full_name}}</p><h4>Response Body</h4><p>{{response.content}}</p><p><b><a href=\"{{ticket.admin_url}}\">View Ticket</a></b></p>",
+            "status": "yes",
+            "can_edit_subject": "yes"
+        }
+    ],
+    "email_keys": [
+        "ticket_created_email_to_customer",
+        "ticket_replied_by_agent_email_to_customer",
+        "ticket_closed_by_agent_email_to_customer",
+        "ticket_created_email_to_admin",
+        "ticket_replied_by_customer_email_to_admin"
+    ]
+}
+```
+
+This endpoint returns mailbox email configs
+
+### HTTP Request
+
+`GET https://yourdomain.com/wp-json/fluent-support/v2/mailboxes/<mailbox_id>/email_configs`
+
+## Get Mailbox Email Settings
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/mailboxes/<mailbox_id>/email_settings?email_type=<email_key>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command returns the settings of a mailbox email.
+
+```json
+{
+    "email_settings": {
+        "key": "ticket_created_email_to_customer",
+        "title": "Ticket Created (To Customer)",
+        "email_subject": "Re: {{ticket.title}} #{{ticket.id}}",
+        "email_body": "<p>Hi <strong><em>{{customer.full_name}}</em>,</strong></p><p>Your request (<a href=\"{{ticket.public_url}}\">#{{ticket.id}}</a>) has been received, and is being reviewed by our support staff.</p><p>To add additional comments, follow the link below:</p><h4><a href=\"{{ticket.public_url}}\">View Ticket</a></h4><p>&nbsp;</p><p>or follow this link: {{ticket.public_url}}</p><hr /><p>{{business.name}}</p>",
+        "status": "yes",
+        "can_edit_subject": "yes",
+        "description": "This email will be sent when a customer submit a support ticket"
+    }
+}
+```
+
+This endpoint returns mailbox email settings
+
+***All available email keys are:***
+
+- ticket_replied_by_agent_email_to_customer
+- ticket_created_email_to_customer
+- ticket_closed_by_agent_email_to_customer
+- ticket_created_email_to_admin
+- ticket_replied_by_customer_email_to_admin
+
+### HTTP Request
+
+`GET https://yourdomain.com/wp-json/fluent-support/v2/mailboxes/<mailbox_id>/email_settings?email_type=<email_key>`
+
+### Update Email Settings
+
+```shell
+curl --location --request PUT 'https://yourdomain.com/wp-json/fluent-support/v2/mailboxes/<mailbox_id>/email_settings' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command updates mailbox email setting.
+
+```json
+{
+    "message": "Settings has been updated"
+}
+```
+
+This endpoint update mailbox email settings
+
+### HTTP Request
+`PUT https://yourdomain.com/wp-json/fluent-support/v2/mailboxes/<mailbox_id>/email_settings`
+
+### URL Parameters
+Parameter | Type | Description
+--------- | ---- | -----------
+email_type - required | text | Define the email type
+email_settings[key] - required | text | Define email settings key
+email_settings[title] | text | Update email settings title
+email_settings[email_subject] | text | Update email subject
+email_settings[email_body] | text | Update email body
+email_settings[status] | text | Enable or disable the email `yes` to enable and use `no` to disable
+email_settings[can_edit_subject] | text | Enable or disable the subject editing `yes` to enable and use `no` to disable
+email_settings[description] | text | Email description
+
+## Delete Mailbox
+```shell
+curl --location --request DELETE 'https://yourdomain.com/wp-json/fluent-support/v2/mailboxes/<mailbox_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command will delete a mailbox
+
+```json
+{
+    "message": "Selected Business has been deleted"
+}
+```
+
+This endpoint will delete mailbox.
+
+
+### HTTP Request
+`DELETE https://yourdomain.com/wp-json/fluent-support/v2/mailboxes/<mailbox_id>`
+
+### URL Parameters
+
+Parameter | Type | Description
+--------- | ---- | -----------
+fallback_id - required | int | To delete a mailbox you must need to transfer all the tickets associated with this mailbox to another mailbox, so put the targeted mailbox id here
