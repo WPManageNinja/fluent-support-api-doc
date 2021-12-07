@@ -252,7 +252,7 @@ curl "https://yourdomain.com/wp-json/fluent-support/v2/ticket/<ID>" \
 }
 ```
 
-This endpoint retrieves a specific ticket.
+Endpoint to retrieve a specific ticket by Ticket ID.
 
 ### HTTP Request
 
