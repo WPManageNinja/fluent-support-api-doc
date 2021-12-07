@@ -962,7 +962,7 @@ curl --location --request DELETE 'https://yourdomain.com/wp-json/fluent-support/
 
 ```
 
-This endpoint will delete a specific customer.
+End point to delete a customber by Customer ID
 
 ### HTTP Request
 `DELETE https://yourdomain.com/wp-json/fluent-support/v2/customers/<customer_id>`
