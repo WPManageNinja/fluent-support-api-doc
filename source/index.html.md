@@ -20,13 +20,13 @@ code_clipboard: true
 
 # Introduction
 
-Welcome to Fluent Support API doc. This doc will describe the REST API Endpoints of Fluent Support.
+Welcome to the Fluent Support API document. This document will describe the REST API Endpoints of Fluent Support.
 
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). If you find any typo or would like contribute please send a pull request with improvements. Please note that, All endpoints are not added to this doc (Work in progress).
+The example API documentation page was created with [Slate](https://github.com/slatedocs/slate). If you find any typo or would like contribute please send a pull request with improvements. Please note that, All endpoints are not added to this doc (Work in progress).
 
 # Authentication
 
-Fluent Support uses WordPress REST API. So you can use any authorization method that supports WordPress.
+The Fluent Support uses WordPress REST API. So you can use any authorization method that supports WordPress.
 
 Once you create your Application Password in WordPress, Add Authorization Header to every request.
 
@@ -300,7 +300,8 @@ with_data[] | array | Get additional ticket data
 - other_tickets
 - extra_widgets
 - fluentcrm_profile (property of with_data)
-## Create a new Ticket using agent endpoint
+
+## Create a new Ticket using agent
 
 ```shell
 
@@ -373,6 +374,8 @@ This endpoint creates a new ticket. Using this endpoint you can also create a ne
 
 Parameter | Type | Required| Description
 --------- | ---- | ------- | -----------
+ticket[create_customer] | text(yes/no) | no | Default value should be no or blank
+ticket[create_wp_user] | text(yes/no) | no | Default value should be no or blank
 ticket[customer_id] | int | yes | Specify the customer for whom you are creating this ticket.
 ticket[mailbox_id] | int | yes | Select the mailbox.
 ticket[title] | text | yes | Set the ticket title.
@@ -381,20 +384,43 @@ ticket[product_id] | int | no | specify the product.
 ticket[client_priority] | text | no | set the client/customer ticket priority.
 ticket[client_priority] | text | no | set the client/customer ticket priority.
 
-###If you also want to create a customer on ticket creation you can use below parameters:
+
+###Create customer during ticket creation:
 
 Parameter | Type | Required| Description
 --------- | ---- | ------- | -----------
-ticket[create_customer] | text(yes/no) | no | Use yes to create a new customer when a ticket is submitting and if your are doing this then you don't need to use ```ticket[customer_id]```
-ticket[create_wp_user] | text(yes/no) | no | If you use yes then it will create a WP user profile for this customer along with customer creation.
-newCustomer[first_name] | text | no | Add your customer first name.
-newCustomer[last_name] | text | no | Add your customer last name.
+ticket[create_customer] | text(yes/no) | yes | Pass yes as value to create customer
+newCustomer[first_name] | text | yes | Add your customer first name.
+newCustomer[last_name] | text | yes | Add your customer last name.
 newCustomer[email] | email | yes | Add your customer email.
-newCustomer[username] | text | yes | If you are going to create a new WP user also then this field is required.
-newCustomer[password] | password | yes | Create user password.
+ticket[create_wp_user] | text(yes/no) | no | Default value should be no or blank
+ticket[mailbox_id] | int | yes | Select the mailbox.
+ticket[title] | text | yes | Set the ticket title.
+ticket[content] | text | yes | Add ticket contents.
+ticket[product_id] | int | no | specify the product.
+ticket[client_priority] | text | no | set the client/customer ticket priority.
+ticket[client_priority] | text | no | set the client/customer ticket priority.
+
+###Create customer and WP user during ticket creation:
+
+Parameter | Type | Required| Description
+--------- | ---- | ------- | -----------
+ticket[create_customer] | text(yes/no) | yes | Pass yes as value to create customer
+newCustomer[first_name] | text | yes | Add your customer first name.
+newCustomer[last_name] | text | yes | Add your customer last name.
+newCustomer[email] | email | yes | Add your customer email.
+ticket[create_wp_user] | text(yes/no) | yes | Pass yes as value to create WP user
+newCustomer[username] | text | yes | WP username
+newCustomer[password] | password | yes | WP user's password
+ticket[mailbox_id] | int | yes | Select the mailbox.
+ticket[title] | text | yes | Set the ticket title.
+ticket[content] | text | yes | Add ticket contents.
+ticket[product_id] | int | no | specify the product.
+ticket[client_priority] | text | no | set the client/customer ticket priority.
+ticket[client_priority] | text | no | set the client/customer ticket priority.
 
 
-## Create a new Ticket using customer endpoint
+## Create a new Ticket using customer
 
 ```shell
 
