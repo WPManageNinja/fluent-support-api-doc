@@ -26,10 +26,11 @@ The example API documentation page was created with [Slate](https://github.com/s
 
 # Authentication
 
-The Fluent Support uses WordPress REST API. So you can use any authorization method that supports WordPress.
+Fluent Support uses WordPress REST API. So you can use any authorization method that supports WordPress. The easiest way to connect is application password. To create a application password go to the **Users** and click on the user and create a new application password for this user so that this person can easily access the REST API endpoint by using WP Username & Application password in basic auth system.
 
 Once you create your Application Password in WordPress, Add Authorization Header to every request.
 
+In the basic auth username section use your WP Username and in the password section use the created Application Password.
 > Example API Call for tickets
 
 ```shell
