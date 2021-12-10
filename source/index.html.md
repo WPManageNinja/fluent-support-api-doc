@@ -364,13 +364,13 @@ curl --location -g --request POST 'https://yourdomain.com/wp-json/fluent-support
 }
 ```
 
-This endpoint creates a new ticket. Using this endpoint you can also create a new Customer and at the same time you can create a WP user. However, to create new customer there are some fields you have to use.
+This endpoint creates a new ticket. Using this endpoint you will be able to create a new Customer as well as a WP user. However, to create new customer there are some fields you have to use.
 
 ### HTTP Request
 
 `POST https://yourdomain.com/wp-json/fluent-crm/v2/tickets`
 
-### URL Parameters
+### URL Parameters to create ticket
 
 Parameter | Type | Required| Description
 --------- | ---- | ------- | -----------
@@ -385,7 +385,7 @@ ticket[client_priority] | text | no | set the client/customer ticket priority.
 ticket[client_priority] | text | no | set the client/customer ticket priority.
 
 
-###Create customer during ticket creation:
+###  URL Parameters to Create customer during ticket creation:
 
 Parameter | Type | Required| Description
 --------- | ---- | ------- | -----------
@@ -401,7 +401,7 @@ ticket[product_id] | int | no | specify the product.
 ticket[client_priority] | text | no | set the client/customer ticket priority.
 ticket[client_priority] | text | no | set the client/customer ticket priority.
 
-###Create customer and WP user during ticket creation:
+###  URL Parameters to Create customer and WP user during ticket creation:
 
 Parameter | Type | Required| Description
 --------- | ---- | ------- | -----------
