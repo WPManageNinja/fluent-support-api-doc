@@ -26,10 +26,11 @@ The example API documentation page was created with [Slate](https://github.com/s
 
 # Authentication
 
-The Fluent Support uses WordPress REST API. So you can use any authorization method that supports WordPress.
+Fluent Support uses WordPress REST API. So you can use any authorization method that supports WordPress. The easiest way to connect is application password. To create a application password go to the **Users** and click on the user and create a new application password for this user so that this person can easily access the REST API endpoint by using WP Username & Application password in basic auth system.
 
 Once you create your Application Password in WordPress, Add Authorization Header to every request.
 
+In the basic auth username section use your WP Username and in the password section use the created Application Password.
 > Example API Call for tickets
 
 ```shell
@@ -372,8 +373,8 @@ This endpoint creates a new ticket. Using this endpoint you will be able to crea
 
 ### URL Parameters to create ticket
 
-Parameter | Type | Required| Description
---------- | ---- | ------- | -----------
+Parameter | Type | Required | Description
+--------- | ---- | -------- | -----------
 ticket[create_customer] | text(yes/no) | no | Default value should be no or blank
 ticket[create_wp_user] | text(yes/no) | no | Default value should be no or blank
 ticket[customer_id] | int | yes | Specify the customer for whom you are creating this ticket.
@@ -2664,3 +2665,876 @@ curl --location --request DELETE 'https://yourdomain.com/wp-json/fluent-support/
 ```
 
 This endpoint will delete a specific workflow by id
+
+
+# Global Settings
+
+## Get Global Settings
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/settings?settings_key=global_business_settings&with%5B%5D=fields' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command will return global business settings
+
+```json
+{
+    "settings": {
+        "portal_page_id": "547",
+        "login_message": "<p>Please login or create an account to access the Customer Support Portal</p> [fluent_support_auth]",
+        "disable_public_ticket": "no",
+        "accepted_file_types": [
+            "images",
+            "csv",
+            "documents",
+            "zip",
+            "json"
+        ],
+        "max_file_size": "2",
+        "del_files_on_close": "no"
+    },
+    "fields": {
+        "portal_page_id": {
+            "type": "input-options",
+            "label": "Portal Page",
+            "show_id": true,
+            "placeholder": "Select Portal Page",
+            "options": [
+                {
+                    "id": "555",
+                    "title": "Submit Ticket"
+                },
+                {
+                    "id": "554",
+                    "title": "Support Desk"
+                },
+                {
+                    "id": "551",
+                    "title": "FF Ticket"
+                },
+                {
+                    "id": "547",
+                    "title": "Support Portal"
+                },
+            ],
+            "inline_help": "Please provide the page id where you want to show the tickets for your customers. Use shortcode <code>[fluent_support_portal]</code> in that page"
+        },
+        "login_message": {
+            "type": "wp-editor",
+            "label": "Message for non logged in users",
+            "inline_help": "Please provide message for not logged in users. You can place login shortcode too Use shortcode <code>[fluent_support_login]</code> to show built-in login form. For the user registration use this shortcode <code>[fluent_support_signup]</code> and for both form please use <code>[fluent_support_auth]</code>"
+        },
+        "disable_public_ticket": {
+            "type": "inline-checkbox",
+            "true_label": "yes",
+            "false-label": "no",
+            "checkbox_label": "Disable Public Ticket interaction",
+            "inline_help": "If you enable this then only logged in user can reply the tickets. Otherwise, url will be signed and intended user can reply without logging in"
+        },
+        "accepted_file_types": {
+            "wrapper_class": "fs_half_field",
+            "type": "checkbox-group",
+            "label": "Accepted File Types",
+            "options": {
+                "images": "Photos",
+                "csv": "CSV",
+                "documents": "PDF/Docs",
+                "zip": "Zip",
+                "json": "JSON"
+            }
+        },
+        "max_file_size": {
+            "wrapper_class": "fs_half_field",
+            "type": "input-text",
+            "data_type": "number",
+            "label": "Max File Size (in MegaByte)"
+        },
+        "del_files_on_close": {
+            "type": "inline-checkbox",
+            "true_label": "yes",
+            "false-label": "no",
+            "checkbox_label": "Delete all attachments on ticket close",
+            "inline_help": "If you enable this then when a ticket get closed it will delete all the attachments associated with the particular ticket."
+        }
+    }
+}
+```
+
+This endpoint will return global business settings
+
+### HTTP Request
+
+`GET https://yourdomain.com/wp-json/fluent-support/v2/settings`
+
+### URL Parameters
+
+Parameters | Required | Type | Description
+---------- | -------- | ---- | -----------
+settings_key | yes | text | Use `global_business_settings` as `settings_key` value to get all settings
+with[] | yes | text | Use `fields` to get all settings field
+
+
+## Update Global Settings
+
+```shell
+curl --location --request POST 'https://yourdomain.com/wp-json/fluent-support/v2/settings' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command will update the settings
+
+```json
+{
+    "message": "Settings has been updated"
+}
+```
+
+This endpoint will update settings
+
+### HTTP Request
+
+`POST https://yourdomain.com/wp-json/fluent-support/v2/settings`
+
+### URL Parameters
+Parameter | Type | Description
+--------- | ---- | -----------
+settings_key - required | text | Define the settings key
+settings[portal_page_id] | int | Change the customer support page
+settings[login_message] | HTML Supported | Change login page message
+settings[disable_public_ticket] | text | Disable public ticket opening by using `yes`, to keep it enable use no
+settings[accepted_file_types][] | text | Accepted file types, `images`, `csv`, `documents`, `zip`, `json` are available file types
+settings[max_file_size] | int | Maximum allowed file size it will be defined as megabytes
+settings[del_files_on_close] | text | To delete ticket attachments on ticket closing use `yes`, use `no` to keep the attachments
+
+## Get Tags
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/ticket-tags' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+> The above command will return all tags
+
+```json
+
+```
+
+This endpoint will return all tags
+
+### HTTP Request
+
+`GET https://yourdomain.com/wp-json/fluent-support/v2/ticket-tags`
+
+### URL Parameters
+Parameters | Type | Description
+---------- | ---- | -----------
+per_page |  int | Records per page | 15
+page | int | Page Number for Pagination | 1
+search | string | Search by available methods
+
+## Get a Specific Tag
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/ticket-tags/<tag_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command will return a specific tag by id
+
+```json
+{
+    "tags": {
+        "id": 1,
+        "tag_type": "ticket_tag",
+        "title": "New Customer",
+        "slug": "nw-customer",
+        "description": "",
+        "settings": "",
+        "created_by": "1",
+        "created_at": "2021-12-01 13:53:20",
+        "updated_at": "2021-12-09 12:42:15"
+    }
+}
+```
+
+This endpoint will return a specific tag by id
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/ticket-tags/<tag_id>`
+
+## Create a New Tag
+```shell
+curl --location --request POST 'https://yourdomain.com/wp-json/fluent-support/v2/ticket-tags' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command will create a new tag
+
+```json
+
+```
+### HTTP Request
+`POST https://yourdomain.com/wp-json/fluent-support/v2/ticket-tags`
+
+### URL Parameters
+Parameter | Type | Description
+--------- | ---- | -----------
+title | text | Add ticket tag title
+description | text | Add ticket tag description
+
+
+## Update a Tag
+
+```shell
+curl --location --request PUT 'https://yourdomain.com/wp-json/fluent-support/v2/ticket-tags/<tag_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command will update a tag by it's id
+
+```json
+{
+    "message": "Tag has been updated",
+    "tag": {
+        "id": 1,
+        "tag_type": "ticket_tag",
+        "title": "New Customer",
+        "slug": "nw-customer",
+        "description": "",
+        "settings": "",
+        "created_by": "1",
+        "created_at": "2021-12-01 13:53:20",
+        "updated_at": "2021-12-09 12:42:15"
+    }
+}
+```
+
+This endpoint will update a tag by it's id
+
+### HTTP Request
+`PUT https://yourdomain.com/wp-json/fluent-support/v2/ticket-tags/<tag_id>`
+
+### URL Parameters
+Parameter | Type | Description
+--------- | ---- | -----------
+title | text | Update tag title
+description | text | Update tag description
+
+
+## Delete a Tag
+```shell
+curl --location --request DELETE 'https://yourdomain.com/wp-json/fluent-support/v2/ticket-tags/<tag_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command will delete a specific tag by it's id
+
+```json
+{
+    "message": "Tag has been deleted"
+}
+```
+
+This end point will delete a specific tag by it's id
+
+### HTTP Request
+`DELETE https://yourdomain.com/wp-json/fluent-support/v2/ticket-tags/<tag_id>`
+
+## Get Ticket Form Config
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/pro/form-settings' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command will returns ticket form config
+
+```json
+{
+    "settings": {
+        "enable_docs": "yes",
+        "docs_post_types": [
+            "post",
+            "course",
+        ],
+        "post_limits": "5",
+        "disable_rich_text": "no",
+        "disabled_fields": [
+            "product_services"
+        ],
+        "submitter_type": "allowed_user_roles",
+        "allowed_user_roles": [],
+        "field_labels": {
+            "subject": "Subject",
+            "ticket_details": "Ticket Details",
+            "details_help": "Please provide details about your problem",
+            "product_services": "Related Product/Service",
+            "priority": "Priority",
+            "btn_text": "Create Ticket",
+            "submit_heading": "Submit a Support Ticket",
+            "create_ticket_cta": "Create a New Ticket"
+        },
+        "enable_woo_menu": "yes"
+    },
+    "settings_fields": {
+        "enable_docs": {
+            "type": "inline-checkbox",
+            "checkbox_label": "Enable knowledge base suggestion on ticket creation form",
+            "true_label": "yes",
+            "false_label": "no"
+        },
+        "docs_post_types": {
+            "type": "checkbox-group",
+            "label": "Knowledge Base post types",
+            "options": {
+                "post": "post",
+                "course": "course",
+            },
+            "inline_help": "Select the post types that you want to show articles from",
+            "wrapper_class": "fs_half_field",
+            "dependency": {
+                "depends_on": "enable_docs",
+                "operator": "=",
+                "value": "yes"
+            }
+        },
+        "post_limits": {
+            "type": "input-text",
+            "data_type": "number",
+            "label": "Suggested Articles Limit",
+            "wrapper_class": "fs_half_field",
+            "dependency": {
+                "depends_on": "enable_docs",
+                "operator": "=",
+                "value": "yes"
+            }
+        },
+        "disabled_fields": {
+            "type": "checkbox-group",
+            "label": "Disabled Default Fields",
+            "wrapper_class": "fs_half_field",
+            "options": {
+                "file_upload": "File Upload",
+                "priority": "Priority",
+                "product_services": "Product & Services"
+            },
+            "inline_help": "Checked fields will not be available on create ticket form"
+        },
+        "disable_rich_text": {
+            "type": "inline-checkbox",
+            "checkbox_label": "Disable Rich Text Editor for Frontend",
+            "true_label": "yes",
+            "wrapper_class": "fs_half_field",
+            "false_label": "no"
+        },
+        "submitter_type": {
+            "type": "input-radio",
+            "label": "Who can access customer portal?",
+            "options": [
+                {
+                    "id": "logged_in_users",
+                    "label": "Any logged in users"
+                },
+                {
+                    "id": "allowed_user_roles",
+                    "label": "Only selected user roles"
+                }
+            ]
+        },
+        "allowed_user_roles": {
+            "type": "checkbox-group",
+            "label": "Select Users Roles for Customer Portal",
+            "options": {
+                "author": "Author",
+                "contributor": "Contributor",
+                "customer": "Customer",
+                "editor": "Editor",
+                "subscriber": "Subscriber",
+            },
+            "dependency": {
+                "depends_on": "submitter_type",
+                "operator": "=",
+                "value": "allowed_user_roles"
+            }
+        },
+        "field_labels": {
+            "label": "Form Labels Customization",
+            "source_label": "Field",
+            "new_label": "Input Label",
+            "type": "object-tabular-input",
+            "options": {
+                "subject": "Subject heading",
+                "ticket_details": "Form content heading",
+                "details_help": "Content help message",
+                "product_services": "Product/Service heading",
+                "priority": "Priority heading",
+                "btn_text": "Create ticket button text",
+                "submit_heading": "Create ticket page heading",
+                "create_ticket_cta": "Ticket Create Call to Action"
+            }
+        },
+        "enable_woo_menu": {
+            "type": "inline-checkbox",
+            "checkbox_label": "Add support link to WooCommerce account navigation",
+            "true_label": "yes",
+            "false_label": "no"
+        }
+    }
+}
+```
+
+This endpoint will returns ticket form config
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/pro/form-settings`
+
+### URL Parameters
+
+Parameter | Type | Description
+--------- | ---- | -----------
+with[] - required | text | This will render settings fields & use `fields` to do this
+
+## Update Ticket Form Config
+
+```shell
+curl --location --request POST 'https://yourdomain.com/wp-json/fluent-support/v2/pro/form-settings' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command will update ticket form config
+
+```json
+{
+    "message": "Settings has been updated"
+}
+```
+This endpoint will update ticket form config
+
+### HTTP Request
+`POST https://yourdomain.com/wp-json/fluent-support/v2/pro/form-settings`
+
+### URL Parameters
+Parameter | Type | Description
+--------- | ---- | -----------
+settings[enable_docs] | text | Enable or disable knowledge base docs suggestion option
+settings[docs_post_types][] | text | Select post type from where you want to suggest the knowledge base
+settings[post_limits] | int | Define how many post you want to show in knowledge base suggestion
+settings[disable_rich_text] | text | Enable and disable rich text editing
+settings[disabled_fields][] | text | Disable default field
+settings[submitter_type] | text | Use `allowed_user_roles` to enable this
+settings[allowed_user_roles][] | text | After enabling `submitter_type` you can give access to the user role
+settings[field_labels][field_key_here] | text | Change field label
+settings[enable_woo_menu] | text | Enable or disable support navigation in woocommerce customer account page
+
+## Get Products
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/products' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command will return all products
+
+```json
+{
+    "total": 2,
+    "per_page": 10,
+    "current_page": 1,
+    "last_page": 1,
+    "next_page_url": null,
+    "prev_page_url": null,
+    "from": 1,
+    "to": 2,
+    "data": [
+        {
+            "id": 2,
+            "source_uid": null,
+            "mailbox_id": null,
+            "title": "Fluent Forms",
+            "description": "",
+            "settings": null,
+            "source": "local",
+            "created_by": null,
+            "created_at": "2021-11-29 17:56:13",
+            "updated_at": "2021-11-29 17:56:13"
+        },
+        {
+            "id": 1,
+            "source_uid": null,
+            "mailbox_id": null,
+            "title": "Fluent Support",
+            "description": "",
+            "settings": null,
+            "source": "local",
+            "created_by": null,
+            "created_at": "2021-11-29 17:56:07",
+            "updated_at": "2021-11-29 17:56:07"
+        }
+    ]
+}
+```
+
+This endpoint will return all products
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/products`
+
+### URL Parameters
+Parameter | Type | Description
+---------- | ---- | -----------
+per_page |  int | Records per page | 15
+page | int | Page Number for Pagination | 1
+search | string | Search by available methods
+
+## Get a Specific Product
+
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/products/<product_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command will return a specific product by it's id
+
+```json
+{
+    "product": {
+        "id": 1,
+        "source_uid": null,
+        "mailbox_id": null,
+        "title": "Fluent Support",
+        "description": "",
+        "settings": null,
+        "source": "local",
+        "created_by": null,
+        "created_at": "2021-11-29 17:56:07",
+        "updated_at": "2021-11-29 17:56:07"
+    }
+}
+```
+
+This endpoint will return a specific product by it's id
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/products/<product_id>`
+
+## Create a New Product
+```shell
+curl --location --request POST 'https://yourdomain.com/wp-json/fluent-support/v2/products' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+> The above command will create a new product
+
+```json
+{
+    "message": "Product has been successfully created",
+    "product": {
+        "title": "Fluent CRM",
+        "description": "",
+        "updated_at": "2021-12-09 16:11:13",
+        "created_at": "2021-12-09 16:11:13",
+        "id": 3
+    }
+}
+```
+
+This endpoint will create a new product
+
+### HTTP Request
+`POST https://yourdomain.com/wp-json/fluent-support/v2/products`
+
+### URL Parameters
+Parameter | Type | Description
+--------- | ---- | -----------
+title | text | Add product title
+description | text | Add product description
+
+
+
+## Update a Product
+
+```shell
+curl --location --request PUT 'https://yourdomain.com/wp-json/fluent-support/v2/products/<product_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command will return a specific product by it's id
+
+```json
+{
+    "message": "Product has been updated",
+    "product": {
+        "id": 1,
+        "source_uid": "0",
+        "mailbox_id": null,
+        "title": "Fluent Support",
+        "description": "This is for Fluent Support",
+        "settings": "",
+        "source": "local",
+        "created_by": "0",
+        "created_at": "2021-11-29 17:56:07",
+        "updated_at": "2021-12-09 14:44:35"
+    }
+}
+```
+
+This endpoint will return a specific product by it's id
+
+### HTTP Request
+`PUT https://yourdomain.com/wp-json/fluent-support/v2/products/<product_id>`
+
+
+### URL Parameters
+Parameter | Type | Description
+--------- | ---- | -----------
+title | text | Update product title
+description | text | Update product description
+
+## Delete a Product
+
+```shell
+curl --location --request DELETE 'https://yourdomain.com/wp-json/fluent-support/v2/products/<product_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command will delete a specific product by it's id
+
+```json
+{
+    "message": "Product has been deleted"
+}
+```
+
+This endpoint will delete a specific product by it's id
+
+### HTTP Request
+
+`DELETE https://yourdomain.com/wp-json/fluent-support/v2/products/<product_id>`
+
+## Get All Support Staff
+```shell
+curl --location --request GET 'https://yourdomain.com/wp-json/fluent-support/v2/agents' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command will returns all agents
+
+```json
+{
+    "agents": {
+        "total": 1,
+        "per_page": 10,
+        "current_page": 1,
+        "last_page": 1,
+        "next_page_url": null,
+        "prev_page_url": null,
+        "from": 1,
+        "to": 1,
+        "data": [
+            {
+                "id": 1,
+                "first_name": "Rafi",
+                "last_name": "Ahmed",
+                "email": "rafi@authlab.io",
+                "title": "Developer",
+                "avatar": null,
+                "person_type": "agent",
+                "status": "active",
+                "ip_address": null,
+                "last_ip_address": null,
+                "address_line_1": null,
+                "address_line_2": null,
+                "city": null,
+                "zip": null,
+                "state": null,
+                "country": null,
+                "note": null,
+                "hash": "890d34ca8a81de55cef0c5b506887604",
+                "user_id": "1",
+                "description": null,
+                "remote_uid": null,
+                "last_response_at": null,
+                "created_at": "2021-11-18 15:07:45",
+                "updated_at": "2021-12-02 20:14:35",
+                "permissions": [
+                    "fst_view_dashboard",
+                    "fst_manage_own_tickets",
+                    "fst_manage_unassigned_tickets",
+                    "fst_manage_other_tickets",
+                    "fst_delete_tickets",
+                    "fst_manage_settings",
+                    "fst_sensitive_data",
+                    "fst_manage_workflows",
+                    "fst_run_workflows",
+                    "fst_view_all_reports",
+                    "fst_manage_saved_replies",
+                    "fst_view_activity_logs",
+                    "administrator"
+                ],
+                "user_profile": "https://fs.app/wp-admin/user-edit.php?user_id=1",
+                "replies_count": 60,
+                "interactions_count": 19,
+                "telegram_chat_id": "683330659",
+                "slack_user_id": "",
+                "full_name": "Rafi Ahmed",
+                "photo": "https://www.gravatar.com/avatar/3f6e19a6d1fcf98c73e031882796091f?s=128"
+            }
+        ]
+    },
+    "permissions": [
+        {
+            "title": "Tickets Permissions",
+            "permissions": {
+                "fst_view_dashboard": "View Dashboard",
+                "fst_manage_own_tickets": "Manage Own Tickets",
+                "fst_manage_unassigned_tickets": "Manage Unassigned Tickets",
+                "fst_manage_other_tickets": "Manage Others Tickets",
+                "fst_delete_tickets": "Delete Tickets"
+            }
+        },
+        {
+            "title": "Workflow Permissions",
+            "permissions": {
+                "fst_manage_workflows": "Manage Workflows",
+                "fst_run_workflows": "Run workflows",
+                "fst_manage_saved_replies": "Manage Saved Replies"
+            }
+        },
+        {
+            "title": "Settings",
+            "permissions": {
+                "fst_manage_settings": "Manage Overall Settings",
+                "fst_sensitive_data": "Access Private Data (Customers, Agents)"
+            }
+        },
+        {
+            "title": "Reporting",
+            "permissions": {
+                "fst_view_all_reports": "View All Reports",
+                "fst_view_activity_logs": "View Activity Logs"
+            }
+        }
+    ]
+}
+```
+
+This endpoint will returns all agents
+
+### HTTP Request
+`GET https://yourdomain.com/wp-json/fluent-support/v2/agents`
+
+### URL Parameters
+Parameter | Type | Description
+---------- | ---- | -----------
+per_page |  int | Records per page | 15
+page | int | Page Number for Pagination | 1
+search | string | Search by available methods
+
+## Create a New Support Agent
+```shell
+curl --location --request POST 'https://yourdomain.com/wp-json/fluent-support/v2/agents' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command will create a new agent
+
+```json
+
+```
+
+This endpoint will create a new agent
+
+### HTTP Request
+`POST https://yourdomain.com/wp-json/fluent-support/v2/agents`
+
+### URL Parameters
+Parameter | Required | Type | Description
+--------- | -------- | ---- | -----------
+email | yes | email | Add agent email address
+first_name | yes | text | Add agent first name
+last_name | no | text | Add agent last name
+title | no | text | Add agent title
+permissions[] | yes | text | Add agent permissions by permission keys
+telegram_chat_id | no | mixed | Add agent telegram chat id for integration
+slack_user_id | no | mixed | Add agent slack user id for integration
+
+## Update an Agent
+```shell
+curl --location --request PUT 'https://yourdomain.com/wp-json/fluent-support/v2/agents/<agent_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+
+> The above command will update an agent profile by id
+
+```json
+{
+    "message": "Support Staff has been updated",
+    "agent": {
+        "id": 1,
+        "first_name": "Rafi",
+        "last_name": "Ahmed",
+        "email": "rafi@authlab.io",
+        "title": "Agent",
+        "avatar": null,
+        "person_type": "agent",
+        "status": "active",
+        "ip_address": null,
+        "last_ip_address": null,
+        "address_line_1": null,
+        "address_line_2": null,
+        "city": null,
+        "zip": null,
+        "state": null,
+        "country": null,
+        "note": null,
+        "hash": "890d34ca8a81de55cef0c5b506887604",
+        "user_id": "1",
+        "description": null,
+        "remote_uid": null,
+        "last_response_at": null,
+        "created_at": "2021-11-18 15:07:45",
+        "updated_at": "2021-12-09 16:49:02",
+        "telegram_chat_id": "683330659",
+        "slack_user_id": "",
+        "full_name": "Rafi Ahmed",
+        "photo": "https://www.gravatar.com/avatar/3f6e19a6d1fcf98c73e031882796091f?s=128"
+    }
+}
+```
+
+This endpoint will update an agent profile by id
+
+### HTTP Request
+`PUT https://yourdomain.com/wp-json/fluent-support/v2/agents/<agent_id>`
+
+### URL Parameters
+Parameter | Type | Description
+--------- | ---- | -----------
+first_name | text | Update agent first name
+last_name | text | Update agent last name
+title | text | Update agent title
+permissions[] | text | Update agent permissions by permission keys
+telegram_chat_id | mixed | Update agent telegram chat id for integration
+slack_user_id | mixed | Update agent slack user id for integration
+avatar | url | Update agent profile image
+
+## Delete an Agent
+```shell
+curl --location --request DELETE 'https://yourdomain.com/wp-json/fluent-support/v2/agents/<agent_id>' \
+--header 'Authorization: BASIC API_USERNAME:API_PASSWORD' \
+```
+> The above command will delete an agent by id
+
+ ```json
+{
+    "message": "Selected support staff has been deleted"
+}
+ ```
+This endpoint will delete an agent by id
+
+### HTTP Request
+`DELETE https://yourdomain.com/wp-json/fluent-support/v2/agents/<agent_id>`
+
+
+### URL Parameters
+Parameter | Type | Description
+--------- | ---- | -----------
+fallback_agent_id - required | int | You need to define fallback agent id here
