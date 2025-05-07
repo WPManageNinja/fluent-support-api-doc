@@ -369,9 +369,9 @@ This endpoint creates a new ticket. Using this endpoint you will be able to crea
 
 ### HTTP Request
 
-`POST https://yourdomain.com/wp-json/fluent-crm/v2/tickets`
+`POST https://yourdomain.com/wp-json/fluent-support/v2/tickets`
 
-### URL Parameters to create ticket
+### URL Parameters to create a ticket
 
 Parameter | Type | Required | Description
 --------- | ---- | -------- | -----------
