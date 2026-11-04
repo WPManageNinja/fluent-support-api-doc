@@ -19,6 +19,11 @@ includes:
   - agents
   - agent_groups
   - mailboxes
+  - products
+  - ticket_tags
+  - ticket_custom_fields
+  - saved_replies
+  - workflows
   - webhooks
   - errors
 
