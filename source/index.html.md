@@ -26,6 +26,11 @@ includes:
   - workflows
   - time_tracking
   - ai
+  - reports
+  - personal_reports
+  - advanced_reports
+  - activities
+  - notifications
   - webhooks
   - errors
 
