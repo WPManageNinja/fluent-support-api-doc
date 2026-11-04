@@ -31,6 +31,12 @@ includes:
   - advanced_reports
   - activities
   - notifications
+  - settings
+  - ticket_form
+  - license
+  - remote_portal
+  - system_tools
+  - ticket_importer
   - webhooks
   - errors
 
