@@ -13,6 +13,9 @@ toc_footers:
 includes:
   - tickets
   - tickets_pro
+  - customers
+  - customer_portal
+  - auth
   - errors
 
 search: true
