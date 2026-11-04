@@ -18,6 +18,8 @@ includes:
   - auth
   - agents
   - agent_groups
+  - mailboxes
+  - webhooks
   - errors
 
 search: true
