@@ -24,6 +24,8 @@ includes:
   - ticket_custom_fields
   - saved_replies
   - workflows
+  - time_tracking
+  - ai
   - webhooks
   - errors
 
