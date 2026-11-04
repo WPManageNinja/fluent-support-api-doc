@@ -16,6 +16,8 @@ includes:
   - customers
   - customer_portal
   - auth
+  - agents
+  - agent_groups
   - errors
 
 search: true
